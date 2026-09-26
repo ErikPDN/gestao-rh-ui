@@ -1,5 +1,5 @@
-import { CircleUserIcon } from 'lucide-react'
 import { SearchBar } from '../../components/SearchBar'
+import { Avatar } from '../../components/Avatar'
 
 export default function HeaderLayout() {
   return (
@@ -12,7 +12,7 @@ export default function HeaderLayout() {
 
           {/* TODO: Implementar User Profile Button */}
           <button type="button" className="cursor-pointer" onClick={() => {}}>
-            <CircleUserIcon className="h-6 w-6 text-zinc-400" />
+            <Avatar funcionarioNome="Erik Pereira" size="sm" />
           </button>
         </div>
       </div>
