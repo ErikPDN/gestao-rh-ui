@@ -1,4 +1,4 @@
-import { Bar, BarChart, LabelList, ResponsiveContainer, XAxis, YAxis } from 'recharts'
+import { NavLink } from 'react-router-dom'
 
 interface DepartmentData {
   name: string
@@ -13,22 +13,26 @@ const data: DepartmentData[] = [
 ]
 
 export const DashboardChart = () => {
+  const max = Math.max(...data.map((d) => d.value))
+
   return (
-    <ResponsiveContainer width="100%" height={220}>
-      <BarChart data={data} layout="vertical">
-        <XAxis type="number" hide />
-        <YAxis
-          type="category"
-          dataKey="name"
-          width={150}
-          tickLine={false}
-          axisLine={false}
-          tick={{ fontSize: 13, fill: '#3f3f46' }}
-        />
-        <Bar dataKey="value" radius={[0, 6, 6, 0]} barSize={16} fill="#2563eb">
-          <LabelList dataKey="value" position="right" style={{ fontSize: 13, fill: '#3f3f46' }} />
-        </Bar>
-      </BarChart>
-    </ResponsiveContainer>
+    <div className="flex flex-col gap-1">
+      {data.map((dept) => (
+        <NavLink
+          key={dept.name}
+          to={`/departamentos/${encodeURIComponent(dept.name)}`}
+          className="flex items-center gap-3 rounded-md p-2 transition-colors hover:bg-gray-200"
+        >
+          <span className="w-36 shrink-0 text-xs text-zinc-800">{dept.name}</span>
+          <div className="h-4 flex-1 rounded bg-zinc-100">
+            <div
+              className="h-4 rounded bg-blue-600"
+              style={{ width: `${(dept.value / max) * 100}%` }}
+            />
+          </div>
+          <span className="w-6 shrink-0 text-right text-xs text-zinc-800">{dept.value}</span>
+        </NavLink>
+      ))}
+    </div>
   )
 }
