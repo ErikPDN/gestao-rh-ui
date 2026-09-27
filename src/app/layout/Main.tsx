@@ -10,7 +10,7 @@ export default function MainLayout() {
       <div className="flex flex-1 flex-col overflow-hidden">
         <Header />
 
-        <main className="mx-14 my-6 flex-1 overflow-y-auto py-6">
+        <main className="scrollbar-hidden mx-14 my-6 flex-1 overflow-y-auto py-6">
           <Outlet />
         </main>
       </div>
