@@ -1,3 +1,4 @@
+import { formatCurrency } from '../../../lib/utils/currency-formatter'
 import { MetricCard } from './MetricCard'
 
 interface MetricSectionProps {
@@ -41,7 +42,7 @@ export const MetricSection = ({
       />
       <MetricCard
         label="Folha salarial mensal"
-        value={folhaSalarialMensal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+        value={formatCurrency(folhaSalarialMensal)}
         helperText="soma dos salários ativos"
         navlink="/funcionarios"
       />

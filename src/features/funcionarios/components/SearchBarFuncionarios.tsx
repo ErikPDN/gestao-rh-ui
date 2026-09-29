@@ -15,10 +15,10 @@ export const SearchBarFuncionarios = () => {
       <input
         type="text"
         aria-label="Search"
-        placeholder="Buscar funcionários..."
+        placeholder="Nome ou CPF"
         value={searchTerm}
         onChange={handleSearchChange}
-        className="bg-background w-80 rounded-lg border border-zinc-300 py-2 pr-4 pl-10 text-sm outline-none"
+        className="bg-background w-80 rounded-lg border border-zinc-300 py-2 pr-4 pl-10 text-sm leading-none outline-none"
       />
     </div>
   )

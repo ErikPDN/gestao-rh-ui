@@ -1,5 +1,6 @@
 import { ButtonAddFuncionario } from '../components/ButtonAddFuncionario'
 import { FiltrosFuncionario } from '../components/FiltrosFuncionario'
+import { TabelaFuncionarios } from '../components/TabelaFuncionarios'
 
 export default function FuncionariosPage() {
   return (
@@ -14,6 +15,8 @@ export default function FuncionariosPage() {
       </div>
 
       <FiltrosFuncionario />
+
+      <TabelaFuncionarios isLoading={false} />
     </div>
   )
 }
