@@ -1,12 +1,13 @@
 import { NavLink } from 'react-router-dom'
 import { Avatar } from '../../../components/Avatar'
+import { dateFormatter } from '../../../lib/utils/date-formattet'
 
 interface ActivityItemProps {
   id: string
   nome: string
   departamento: string
   cargo: string
-  dataAdmissao: Date
+  dataAdmissao: string
   avatarUrl?: string
 }
 
@@ -31,7 +32,7 @@ export const ActivityItem = ({
         </span>
       </div>
 
-      <div className="ml-auto text-xs">{dataAdmissao.toLocaleDateString('pt-BR')}</div>
+      <div className="ml-auto text-xs">{dateFormatter(new Date(dataAdmissao))}</div>
     </NavLink>
   )
 }
