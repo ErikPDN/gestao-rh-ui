@@ -1,4 +1,4 @@
-import { StatusFuncionario } from '../types'
+import { StatusFuncionario } from '../types/status-funcionario'
 
 interface BadgeStatusFuncionarioProps {
   status: StatusFuncionario
@@ -13,7 +13,7 @@ export const BadgeStatusFuncionario = ({ status }: BadgeStatusFuncionarioProps) 
         className={`h-2 w-2 rounded-full ${status === StatusFuncionario.ATIVO ? 'bg-green-600' : 'bg-zinc-500'}`}
       />
       <span
-        className={`text-xs font-medium ${status === StatusFuncionario.ATIVO ? 'text-green-600' : 'text-zinc-500'}`}
+        className={`text-xs font-medium ${status === StatusFuncionario.ATIVO ? 'text-green-700' : 'text-zinc-500'}`}
       >
         {status}
       </span>

@@ -11,7 +11,7 @@ export const SearchBarFuncionarios = () => {
 
   return (
     <div className="relative ml-auto max-w-md">
-      <Search className="absolute top-1/2 left-4 h-4 w-4 -translate-y-1/2 text-zinc-400" />
+      <Search className="absolute top-1/2 left-4 h-3 w-3 -translate-y-1/2 text-zinc-400" />
       <input
         type="text"
         aria-label="Search"

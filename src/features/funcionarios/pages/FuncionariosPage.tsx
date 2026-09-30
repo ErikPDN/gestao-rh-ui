@@ -1,8 +1,19 @@
+import { useState } from 'react'
 import { ButtonAddFuncionario } from '../components/ButtonAddFuncionario'
 import { FiltrosFuncionario } from '../components/FiltrosFuncionario'
 import { TabelaFuncionarios } from '../components/TabelaFuncionarios'
+import { useGetFuncionariosQuery } from '../hooks/useGetFuncionariosQuery'
 
 export default function FuncionariosPage() {
+  const [page, setPage] = useState(1)
+  const [funcionarioIds, setFuncionarioIds] = useState<string[]>([])
+
+  const {
+    data: funcionarios,
+    isLoading,
+    isError,
+  } = useGetFuncionariosQuery({ page, limit: 20, funcionarioIds })
+
   return (
     <div className="flex flex-1 flex-col space-y-6">
       <div className="flex items-center justify-between">
@@ -14,9 +25,10 @@ export default function FuncionariosPage() {
         <ButtonAddFuncionario onNovoFuncionario={() => {}} />
       </div>
 
+      {/* TODO: fazer debounce */}
       <FiltrosFuncionario />
 
-      <TabelaFuncionarios isLoading={false} />
+      <TabelaFuncionarios isLoading={isLoading} funcionarios={funcionarios} />
     </div>
   )
 }
