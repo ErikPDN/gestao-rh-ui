@@ -10,7 +10,7 @@ export const SearchBarFuncionarios = () => {
   }
 
   return (
-    <div className="relative ml-auto max-w-md">
+    <div className="relative max-w-md">
       <Search className="absolute top-1/2 left-4 h-3 w-3 -translate-y-1/2 text-zinc-400" />
       <input
         type="text"

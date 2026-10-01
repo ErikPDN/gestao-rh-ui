@@ -1,3 +1,4 @@
+import { formatCPF } from '../../../lib/utils/cpf-formatter'
 import { formatCurrency } from '../../../lib/utils/currency-formatter'
 import { dateToStatusFuncionario } from '../../../lib/utils/date-to-status-funcionario'
 import type { FuncionarioResponse } from '../types/funcionario-response'
@@ -35,7 +36,7 @@ export const TabelaFuncionarios = ({ isLoading, funcionarios }: TabelaFuncionari
                   <span className="text-sm font-medium text-zinc-950">{funcionario.nome}</span>
                 </td>
                 <td className="p-3">
-                  <span className="text-sm text-zinc-500">{funcionario.cpfCnpj}</span>
+                  <span className="text-sm text-zinc-500">{formatCPF(funcionario.cpfCnpj)}</span>
                 </td>
                 <td className="p-3">
                   <span className="text-sm text-zinc-500">{funcionario.departamento}</span>
@@ -45,7 +46,7 @@ export const TabelaFuncionarios = ({ isLoading, funcionarios }: TabelaFuncionari
                 </td>
                 <td className="justify-end p-3 text-right">
                   <span className="text-sm font-medium text-zinc-950">
-                    {formatCurrency(funcionario.salario)}
+                    {formatCurrency(Number(funcionario.salario))}
                   </span>
                 </td>
                 <td className="p-3">

@@ -1,5 +1,5 @@
 import { httpClient } from '../../lib/api-client'
-import type { FuncionarioResponse } from './types/funcionario-response'
+import type { FuncionarioPaginatedResponse } from './types/funcionario-paginated-response'
 
 export interface GetFuncionariosParams {
   funcionarioIds?: string[]
@@ -12,7 +12,7 @@ export const getFuncionarios = async ({
   page,
   limit,
 }: GetFuncionariosParams = {}) => {
-  const response = await httpClient.get('/funcionarios', {
+  const response = await httpClient.get<FuncionarioPaginatedResponse>('/funcionarios', {
     params: {
       funcionarioIds: funcionarioIds?.length ? funcionarioIds.join(',') : undefined,
       page,
