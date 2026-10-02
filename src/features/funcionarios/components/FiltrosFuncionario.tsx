@@ -4,12 +4,13 @@ import { StatusFiltroFuncionario } from './StatusFiltroFuncionario'
 
 interface FiltrosFuncionarioProps {
   total?: number
+  onSearch?: (searchTerm: string) => void
 }
 
-export const FiltrosFuncionario = ({ total }: FiltrosFuncionarioProps) => {
+export const FiltrosFuncionario = ({ total, onSearch }: FiltrosFuncionarioProps) => {
   return (
     <div className="flex items-start gap-2">
-      <SearchBarFuncionarios />
+      <SearchBarFuncionarios onSearch={onSearch} />
       <SelectFiltroFuncionario />
       <StatusFiltroFuncionario />
     </div>

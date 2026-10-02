@@ -1,12 +1,17 @@
 import { Search } from 'lucide-react'
 import { useState, type ChangeEvent } from 'react'
 
-export const SearchBarFuncionarios = () => {
+interface SearchBarFuncionariosProps {
+  onSearch?: (searchTerm: string) => void
+}
+
+export const SearchBarFuncionarios = ({ onSearch }: SearchBarFuncionariosProps) => {
   const [searchTerm, setSearchTerm] = useState('')
 
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
     setSearchTerm(value)
+    onSearch?.(value)
   }
 
   return (
