@@ -5,15 +5,17 @@ import { TabelaFuncionarios } from '../components/TabelaFuncionarios'
 import { useGetFuncionariosQuery } from '../hooks/useGetFuncionariosQuery'
 import { FooterPagination } from '../../../components/FooterPagination'
 import { useDebounce } from '../hooks/useDebounce'
+import type { StatusFuncionario } from '../types/status-funcionario'
 
 const FUNCIONARIOS_PER_PAGE = 20
 
 export default function FuncionariosPage() {
   const [page, setPage] = useState(1)
   const [searchTerm, setSearchTerm] = useState<string>('')
+  const [statusFuncionario, setStatusFuncionario] = useState<StatusFuncionario | undefined>(
+    undefined,
+  )
   const debouncedSearchTerm = useDebounce(searchTerm, 400)
-
-  const [funcionarioIds, setFuncionarioIds] = useState<string[]>([])
 
   const {
     data: funcionariosData,
@@ -22,13 +24,13 @@ export default function FuncionariosPage() {
   } = useGetFuncionariosQuery({
     page,
     limit: FUNCIONARIOS_PER_PAGE,
-    funcionarioIds,
     query: debouncedSearchTerm,
+    status: statusFuncionario,
   })
 
   useEffect(() => {
     setPage(1)
-  }, [debouncedSearchTerm])
+  }, [debouncedSearchTerm, statusFuncionario])
 
   const totalFuncionarios = funcionariosData?.total || 0
   const totalPages = funcionariosData?.totalPages || 1
@@ -45,7 +47,7 @@ export default function FuncionariosPage() {
         <ButtonAddFuncionario onNovoFuncionario={() => {}} />
       </div>
 
-      <FiltrosFuncionario onSearch={setSearchTerm} />
+      <FiltrosFuncionario onSearch={setSearchTerm} onStatusChange={setStatusFuncionario} />
 
       <TabelaFuncionarios isLoading={isLoading} funcionarios={funcionarios} />
 
