@@ -21,6 +21,7 @@ export default function DashboardPage() {
         folhaSalarialMensal={dashboardData?.folhaSalarialMensal ?? 0}
       />
       <DashboardSection
+        isLoading={isLoading}
         admissoesRecentes={dashboardData?.admissoesRecentes ?? []}
         funcionariosPorDepartamento={dashboardData?.funcionariosPorDepartamento ?? []}
       />
