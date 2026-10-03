@@ -43,7 +43,7 @@ export const CadastrarFuncionarioForm = () => {
 
   return (
     <form id="form-funcionario" className="scrollbar-hidden flex-1 space-y-6 overflow-y-auto p-6">
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col">
         <label htmlFor="cpf" className="text-sm font-medium text-zinc-700">
           CPF
         </label>
@@ -56,7 +56,7 @@ export const CadastrarFuncionarioForm = () => {
           className="bg-background w-full rounded-md border border-zinc-300 px-3 py-2 font-mono text-sm outline-none"
         />
       </div>
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col">
         <label htmlFor="nome" className="text-sm font-medium text-zinc-700">
           Nome
         </label>
@@ -69,7 +69,7 @@ export const CadastrarFuncionarioForm = () => {
           className="bg-background w-full rounded-md border border-zinc-300 px-3 py-2 text-sm outline-none"
         />
       </div>
-      <div className="relative w-full gap-1">
+      <div className="relative w-full">
         <label htmlFor="departamento" className="text-sm font-medium text-zinc-700">
           Departamento
         </label>
@@ -108,7 +108,7 @@ export const CadastrarFuncionarioForm = () => {
         )}
       </div>
 
-      <div className="relative w-full gap-1">
+      <div className="relative w-full">
         <label htmlFor="cargo" className="text-sm font-medium text-zinc-700">
           Cargo
         </label>
@@ -149,7 +149,7 @@ export const CadastrarFuncionarioForm = () => {
         )}
       </div>
 
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col">
         <label htmlFor="salario" className="text-sm font-medium text-zinc-700">
           Salário
         </label>
@@ -169,7 +169,7 @@ export const CadastrarFuncionarioForm = () => {
       </div>
 
       <div className="flex gap-2">
-        <div className="flex flex-1 flex-col gap-1">
+        <div className="flex flex-1 flex-col">
           <label className="text-sm font-medium text-zinc-700">Data de nascimento</label>
           <input
             type="date"
@@ -180,7 +180,7 @@ export const CadastrarFuncionarioForm = () => {
           />
         </div>
 
-        <div className="flex flex-1 flex-col gap-1">
+        <div className="flex flex-1 flex-col">
           <div className="flex gap-1">
             <label className="text-sm font-medium text-zinc-700">Admissão</label>
             <span className="text-xs text-zinc-500">(opcional)</span>
