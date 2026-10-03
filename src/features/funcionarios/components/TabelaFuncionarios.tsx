@@ -37,7 +37,9 @@ export const TabelaFuncionarios = ({ isLoading, funcionarios }: TabelaFuncionari
                   <span className="text-sm font-medium text-zinc-950">{funcionario.nome}</span>
                 </td>
                 <td className="p-3">
-                  <span className="text-sm text-zinc-500">{formatCPF(funcionario.cpfCnpj)}</span>
+                  <span className="font-mono text-sm text-zinc-500">
+                    {formatCPF(funcionario.cpfCnpj)}
+                  </span>
                 </td>
                 <td className="p-3">
                   <span className="text-sm text-zinc-500">{funcionario.departamento}</span>
@@ -46,7 +48,7 @@ export const TabelaFuncionarios = ({ isLoading, funcionarios }: TabelaFuncionari
                   <span className="text-sm text-zinc-500">{funcionario.cargo}</span>
                 </td>
                 <td className="justify-end p-3 text-right">
-                  <span className="text-sm font-medium text-zinc-950">
+                  <span className="font-mono text-sm font-medium text-zinc-950">
                     {formatCurrency(Number(funcionario.salario))}
                   </span>
                 </td>
