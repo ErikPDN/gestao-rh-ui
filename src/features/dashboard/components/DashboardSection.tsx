@@ -19,7 +19,7 @@ export const DashboardSection = ({
 }: DashboardSectionProps) => {
   return (
     <>
-      {!isLoading ? (
+      {isLoading ? (
         <DashboardSkeleton />
       ) : (
         <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">

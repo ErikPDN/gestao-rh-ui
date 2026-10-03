@@ -3,6 +3,7 @@ import { formatCurrency } from '../../../lib/utils/currency-formatter'
 import { dateToStatusFuncionario } from '../../../lib/utils/date-to-status-funcionario'
 import type { FuncionarioResponse } from '../types/funcionario-response'
 import { BadgeStatusFuncionario } from './BadgeStatusFuncionario'
+import { TabelaFuncionariosSkeleton } from './TabelaFuncionariosSkeleton'
 
 interface TabelaFuncionariosProps {
   isLoading: boolean
@@ -13,7 +14,7 @@ export const TabelaFuncionarios = ({ isLoading, funcionarios }: TabelaFuncionari
   return (
     <div className="overflow-x-auto rounded-xl border border-zinc-300">
       {isLoading ? (
-        <div></div> // TODO: Add loading skeleton
+        <TabelaFuncionariosSkeleton />
       ) : (
         <table className="w-full text-left">
           <thead>

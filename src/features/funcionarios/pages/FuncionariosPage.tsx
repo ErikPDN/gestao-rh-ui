@@ -32,7 +32,6 @@ export default function FuncionariosPage() {
     setPage(1)
   }, [debouncedSearchTerm, statusFuncionario])
 
-  const totalFuncionarios = funcionariosData?.total || 0
   const totalPages = funcionariosData?.totalPages || 1
   const funcionarios = funcionariosData?.data || []
 
@@ -47,7 +46,11 @@ export default function FuncionariosPage() {
         <ButtonAddFuncionario onNovoFuncionario={() => {}} />
       </div>
 
-      <FiltrosFuncionario onSearch={setSearchTerm} onStatusChange={setStatusFuncionario} />
+      <FiltrosFuncionario
+        onSearch={setSearchTerm}
+        onStatusChange={setStatusFuncionario}
+        isLoading={isLoading}
+      />
 
       <TabelaFuncionarios isLoading={isLoading} funcionarios={funcionarios} />
 

@@ -55,7 +55,7 @@ export const FooterPagination = ({
   }
 
   return (
-    <footer className="flex items-center justify-center">
+    <footer className={`${isLoading ? 'hidden' : 'flex items-center justify-center'}`}>
       <div className="flex items-center gap-2">
         <button
           type="button"
