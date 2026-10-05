@@ -7,6 +7,7 @@ import { useGetDepartamentosQuery } from '../hooks/useGetDepartamentosQuery'
 import { cadastrarFuncionarioSchema, type CadastrarFuncionarioSchema } from '../schemas/cadastrar'
 import { SelectField } from './SelectField'
 import { formatCurrency } from '../../../lib/utils/currency-formatter'
+import { formatCPF } from '../../../lib/utils/cpf-formatter'
 
 interface CadastrarFuncionarioFormProps {
   onClose: () => void
@@ -23,17 +24,17 @@ export const CadastrarFuncionarioForm = ({ onClose }: CadastrarFuncionarioFormPr
     formState: { errors },
   } = useForm<z.input<typeof cadastrarFuncionarioSchema>, unknown, CadastrarFuncionarioSchema>({
     resolver: zodResolver(cadastrarFuncionarioSchema),
-    defaultValues: { departamento: '', cargo: '' },
+    defaultValues: { departamentoId: '', cargoId: '' },
   })
 
-  const departamentoId = useWatch({ control, name: 'departamento' })
+  const departamentoId = useWatch({ control, name: 'departamentoId' })
 
   const { data: departamentos, isLoading: isLoadingDepartamentos } = useGetDepartamentosQuery()
   const { data: cargos, isLoading: isLoadingCargos } = useGetCargosQuery(departamentoId)
 
   const { mutate: cadastrarFuncionario, isPending, error } = useCadastrarFuncionario()
 
-  const cargoId = useWatch({ control, name: 'cargo' })
+  const cargoId = useWatch({ control, name: 'cargoId' })
   const cargoSelecionado = cargos?.find((cargo) => cargo.id === cargoId)
 
   const onSubmit = (data: CadastrarFuncionarioSchema) => {
@@ -56,12 +57,17 @@ export const CadastrarFuncionarioForm = ({ onClose }: CadastrarFuncionarioFormPr
           <input
             type="text"
             id="cpf"
+            maxLength={14}
             aria-label="CPF do funcionário"
             placeholder="000.000.000-00"
-            {...register('cpf')}
+            {...register('cpfCnpj', {
+              onChange: (e) => {
+                e.target.value = formatCPF(e.target.value)
+              },
+            })}
             className="bg-background w-full rounded-md border border-zinc-300 px-3 py-2 font-mono text-sm outline-none"
           />
-          {errors.cpf && <p className="mt-1 text-xs text-red-600">{errors.cpf.message}</p>}
+          {errors.cpfCnpj && <p className="mt-1 text-xs text-red-600">{errors.cpfCnpj.message}</p>}
         </div>
 
         <div className="flex flex-col">
@@ -81,7 +87,7 @@ export const CadastrarFuncionarioForm = ({ onClose }: CadastrarFuncionarioFormPr
 
         <Controller
           control={control}
-          name="departamento"
+          name="departamentoId"
           render={({ field }) => (
             <SelectField
               id="departamento"
@@ -91,20 +97,20 @@ export const CadastrarFuncionarioForm = ({ onClose }: CadastrarFuncionarioFormPr
               onChange={(id) => {
                 if (id === field.value) return
                 field.onChange(id)
-                setValue('cargo', '')
+                setValue('cargoId', '')
               }}
               placeholder={
                 isLoadingDepartamentos ? 'Carregando departamentos...' : 'Selecione um departamento'
               }
               disabled={isLoadingDepartamentos}
-              error={errors.departamento?.message}
+              error={errors.departamentoId?.message}
             />
           )}
         />
 
         <Controller
           control={control}
-          name="cargo"
+          name="cargoId"
           render={({ field }) => (
             <SelectField
               id="cargo"
@@ -114,7 +120,7 @@ export const CadastrarFuncionarioForm = ({ onClose }: CadastrarFuncionarioFormPr
               onChange={field.onChange}
               placeholder={cargoPlaceholder}
               disabled={!departamentoId || isLoadingCargos}
-              error={errors.cargo?.message}
+              error={errors.cargoId?.message}
             />
           )}
         />
