@@ -47,23 +47,7 @@ export const CadastrarFuncionarioModal = ({ isOpen, onClose }: CadastrarFunciona
               </button>
             </header>
 
-            <CadastrarFuncionarioForm />
-
-            <footer className="flex justify-end gap-3 border-t border-zinc-300 bg-zinc-100 px-6 py-4">
-              <button
-                className="bg-background cursor-pointer rounded-md border border-zinc-200 px-4 py-1.5 text-sm font-medium transition-colors hover:bg-zinc-500/10"
-                onClick={onClose}
-              >
-                Cancelar
-              </button>
-              <button
-                type="submit"
-                form="form-funcionario"
-                className="cursor-pointer rounded-md bg-zinc-900 px-4 py-1.5 text-sm font-medium text-white"
-              >
-                Cadastrar
-              </button>
-            </footer>
+            <CadastrarFuncionarioForm onClose={onClose} />
           </motion.aside>
         </div>
       )}
