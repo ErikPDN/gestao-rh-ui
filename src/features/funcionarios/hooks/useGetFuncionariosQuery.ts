@@ -1,5 +1,6 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
-import { getFuncionarios, type GetFuncionariosParams } from '../api'
+import { getFuncionarios } from '../api'
+import type { GetFuncionariosParams } from '../types/get-funcionarios-params'
 
 export const useGetFuncionariosQuery = (params: GetFuncionariosParams = {}) => {
   return useQuery({

@@ -4,11 +4,10 @@ import { FiltrosFuncionario } from '../components/FiltrosFuncionario'
 import { TabelaFuncionarios } from '../components/TabelaFuncionarios'
 import { useGetFuncionariosQuery } from '../hooks/useGetFuncionariosQuery'
 import { FooterPagination } from '../../../components/FooterPagination'
-import { useDebounce } from '../hooks/useDebounce'
+import { useDebounce } from '../../../hooks/useDebounce'
 import type { StatusFuncionario } from '../types/status-funcionario'
 import { CadastrarFuncionarioModal } from '../components/CadastrarFuncionarioModal'
-
-const FUNCIONARIOS_PER_PAGE = 20
+import { ITEMS_PER_PAGE } from '../../../constants/paginations'
 
 export default function FuncionariosPage() {
   const [page, setPage] = useState(1)
@@ -25,7 +24,7 @@ export default function FuncionariosPage() {
     isError,
   } = useGetFuncionariosQuery({
     page,
-    limit: FUNCIONARIOS_PER_PAGE,
+    limit: ITEMS_PER_PAGE,
     query: debouncedSearchTerm,
     status: statusFuncionario,
   })
