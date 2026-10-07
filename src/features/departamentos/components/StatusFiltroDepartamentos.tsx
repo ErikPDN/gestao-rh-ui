@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { StatusDepartamento } from '../types/status-departamento'
 
 interface StatusFiltroDepartamentoProps {
-  onStatusChange: (status?: string) => void
+  onStatusChange?: (status?: StatusDepartamento) => void
 }
 
 const OPCOES: { label: string; value?: StatusDepartamento }[] = [
@@ -23,7 +23,7 @@ export const StatusFiltroDepartamento = ({ onStatusChange }: StatusFiltroDeparta
             key={label}
             onClick={() => {
               setSelectedLabel(label)
-              onStatusChange(value)
+              onStatusChange?.(value)
             }}
             className={`m-0.5 flex-1 cursor-pointer rounded-md px-3 py-1.5 text-sm font-medium transition-colors duration-75 ${isSelected ? 'bg-background text-zinc-900' : 'text-zinc-700'}`}
           >

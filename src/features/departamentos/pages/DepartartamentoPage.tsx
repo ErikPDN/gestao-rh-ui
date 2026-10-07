@@ -49,9 +49,9 @@ export default function DepartartamentoPage() {
       </div>
 
       <FiltrosDepartamento
-        isLoading={false}
-        onSearch={(searchTerm) => {}}
-        onStatusChange={(status) => {}}
+        isLoading={isLoading}
+        onSearch={setSearchTerm}
+        onStatusChange={setStatusDepartamento}
       />
 
       <TabelaDepartamentos isLoading={isLoading} departamentos={departamentos} />
@@ -59,7 +59,7 @@ export default function DepartartamentoPage() {
       <FooterPagination
         currentPage={page}
         totalPages={totalPages}
-        onPageChange={() => {}}
+        onPageChange={setPage}
         isLoading={isLoading}
       />
     </div>

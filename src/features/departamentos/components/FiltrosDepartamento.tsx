@@ -1,9 +1,10 @@
+import type { StatusDepartamento } from '../types/status-departamento'
 import { SearchBarDepartamentos } from './SearchBarDepartamentos'
 import { StatusFiltroDepartamento } from './StatusFiltroDepartamentos'
 
 interface FiltrosDepartamentoProps {
   onSearch: (searchTerm: string) => void
-  onStatusChange: (status?: string) => void
+  onStatusChange?: (status?: StatusDepartamento) => void
   isLoading?: boolean
 }
 
