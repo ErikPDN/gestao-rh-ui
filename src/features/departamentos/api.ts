@@ -1,4 +1,5 @@
 import { httpClient } from '../../lib/api-client'
+import type { CadastrarDepartamentoFormSchema } from './schemas/cadastrar-departamento'
 import type { DepartamentoPaginatedResponse } from './types/departamento-paginated-response'
 import type { GetDepartamentosParams } from './types/get-departamentos-params'
 
@@ -18,6 +19,12 @@ export const getDepartamentos = async ({
       limit,
     },
   })
+
+  return response.data
+}
+
+export const cadastrarDepartamento = async (data: CadastrarDepartamentoFormSchema) => {
+  const response = await httpClient.post('/departamentos', data)
 
   return response.data
 }

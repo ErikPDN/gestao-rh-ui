@@ -6,6 +6,7 @@ import { TabelaDepartamentos } from '../components/TabelaDepartamentos'
 import type { StatusDepartamento } from '../types/status-departamento'
 import { useDebounce } from '../../../hooks/useDebounce'
 import { useGetDepartamentosQuery } from '../hooks/useGetDepartamentosQuery'
+import { CadastrarDepartamentoModal } from '../components/CadastrarDepartamentoModal'
 
 export default function DepartartamentoPage() {
   const [page, setPage] = useState(1)
@@ -45,7 +46,7 @@ export default function DepartartamentoPage() {
           </p>
         </div>
 
-        <ButtonAddDepartamento onNovoDepartamentoClick={() => {}} />
+        <ButtonAddDepartamento onNovoDepartamentoClick={() => setIsModalOpen(true)} />
       </div>
 
       <FiltrosDepartamento
@@ -62,6 +63,8 @@ export default function DepartartamentoPage() {
         onPageChange={setPage}
         isLoading={isLoading}
       />
+
+      <CadastrarDepartamentoModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   )
 }
