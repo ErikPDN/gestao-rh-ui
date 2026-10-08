@@ -2,18 +2,9 @@ import { httpClient } from '../../lib/api-client'
 import type { CadastrarFuncionarioSchema } from './schemas/cadastrar'
 import type { CargoResponse } from './types/cargo-response'
 import type { DepartamentoPaginatedResponse } from './types/departamento-paginated-response'
-import type { DepartamentoResponse } from './types/departamento-response'
 import type { FuncionarioPaginatedResponse } from './types/funcionario-paginated-response'
 import type { FuncionarioResponse } from './types/funcionario-response'
-import type { StatusFuncionario } from './types/status-funcionario'
-
-export interface GetFuncionariosParams {
-  funcionarioIds?: string[]
-  query?: string
-  page?: number
-  status?: StatusFuncionario
-  limit?: number
-}
+import type { GetFuncionariosParams } from './types/get-funcionarios-params'
 
 export const getFuncionarios = async ({
   funcionarioIds,
