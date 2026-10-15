@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { cadastrarDepartamento } from '../api'
 
-export const useCadastrarDepartamento = () => {
+export const useCadastrarDepartamentoMutation = () => {
   const queryClient = useQueryClient()
 
   return useMutation({

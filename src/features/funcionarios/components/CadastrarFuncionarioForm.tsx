@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Controller, useForm, useWatch } from 'react-hook-form'
 import type z from 'zod'
-import { useCadastrarFuncionario } from '../hooks/useCadastrarFuncionario'
+import { useCadastrarFuncionarioMutation } from '../hooks/useCadastrarFuncionarioMutation'
 import { useGetCargosQuery } from '../hooks/useGetCargosQuery'
 import { useGetDepartamentosQuery } from '../hooks/useGetDepartamentosQuery'
 import { cadastrarFuncionarioSchema, type CadastrarFuncionarioSchema } from '../schemas/cadastrar'
@@ -32,7 +32,7 @@ export const CadastrarFuncionarioForm = ({ onClose }: CadastrarFuncionarioFormPr
   const { data: departamentos, isLoading: isLoadingDepartamentos } = useGetDepartamentosQuery()
   const { data: cargos, isLoading: isLoadingCargos } = useGetCargosQuery(departamentoId)
 
-  const { mutate: cadastrarFuncionario, isPending, error } = useCadastrarFuncionario()
+  const { mutate: cadastrarFuncionario, isPending, error } = useCadastrarFuncionarioMutation()
 
   const cargoId = useWatch({ control, name: 'cargoId' })
   const cargoSelecionado = cargos?.find((cargo) => cargo.id === cargoId)

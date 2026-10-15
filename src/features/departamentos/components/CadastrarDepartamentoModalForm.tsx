@@ -4,7 +4,7 @@ import {
   cadastrarDepartamentoSchema,
   type CadastrarDepartamentoFormSchema,
 } from '../schemas/cadastrar-departamento'
-import { useCadastrarDepartamento } from '../hooks/useCadastrarDepartamento'
+import { useCadastrarDepartamentoMutation } from '../hooks/useCadastrarDepartamentoMutation'
 
 interface CadastrarDepartamentoModalFormProps {
   onClose: () => void
@@ -21,7 +21,7 @@ export const CadastrarDepartamentoModalForm = ({
     resolver: zodResolver(cadastrarDepartamentoSchema),
   })
 
-  const { mutate: cadastrarDepartamento, isPending, error } = useCadastrarDepartamento() // TODO: adicionar toast de sucesso e erro
+  const { mutate: cadastrarDepartamento, isPending, error } = useCadastrarDepartamentoMutation() // TODO: adicionar toast de sucesso e erro
 
   const onSubmit = (data: CadastrarDepartamentoFormSchema) => {
     cadastrarDepartamento(data, { onSuccess: onClose })
