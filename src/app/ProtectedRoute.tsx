@@ -13,7 +13,11 @@ export const ProtectedRoute = ({ allowedRoles }: ProtectedRouteProps) => {
   if (isHydrating) {
     return (
       <div className="flex h-screen items-center justify-center">
-        <div className="h-14 w-14 animate-spin rounded-full border-4 border-zinc-500 border-t-zinc-500" />
+        <div
+          role="status"
+          aria-label="Carregando"
+          className="h-10 w-10 animate-spin rounded-full border-4 border-zinc-200 border-t-zinc-900 motion-reduce:animate-[spin_2s_linear_infinite]"
+        />
       </div>
     )
   }

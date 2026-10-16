@@ -6,3 +6,7 @@ export const login = async (data: LoginFormSchema) => {
   const response = await httpClient.post<AuthResponse>('/auth/login', data)
   return response.data
 }
+
+export const logout = async () => {
+  await httpClient.post('/auth/logout')
+}
