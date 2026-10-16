@@ -22,7 +22,7 @@ export const LoginForm = () => {
     resolver: zodResolver(loginSchema),
   })
 
-  const { mutate: login, isPending, error } = useLoginMutation()
+  const { mutate: login, isPending } = useLoginMutation()
 
   const onSubmit = (data: LoginFormSchema) => {
     login(data, {

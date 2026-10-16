@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { toast } from 'sonner'
 import { FooterPagination } from '../../../components/FooterPagination'
 import { ButtonAddDepartamento } from '../components/ButtonAddDepartamento'
 import { FiltrosDepartamento } from '../components/FiltrosDepartamento'
@@ -28,6 +29,10 @@ export default function DepartartamentoPage() {
     query: debouncedSearchTerm,
     status: statusDepartamento,
   })
+
+  useEffect(() => {
+    if (isError) toast.error('Não foi possível carregar os departamentos.')
+  }, [isError])
 
   useEffect(() => {
     setPage(1)

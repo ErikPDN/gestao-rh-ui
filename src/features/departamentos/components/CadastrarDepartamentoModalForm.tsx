@@ -21,7 +21,7 @@ export const CadastrarDepartamentoModalForm = ({
     resolver: zodResolver(cadastrarDepartamentoSchema),
   })
 
-  const { mutate: cadastrarDepartamento, isPending, error } = useCadastrarDepartamentoMutation() // TODO: adicionar toast de sucesso e erro
+  const { mutate: cadastrarDepartamento, isPending } = useCadastrarDepartamentoMutation()
 
   const onSubmit = (data: CadastrarDepartamentoFormSchema) => {
     cadastrarDepartamento(data, { onSuccess: onClose })
