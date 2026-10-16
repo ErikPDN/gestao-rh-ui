@@ -1,9 +1,15 @@
+import { useEffect } from 'react'
+import { toast } from 'sonner'
 import { DashboardSection } from '../components/DashboardSection'
 import { MetricSection } from '../components/MetricSection'
-import { useGetDashboard } from '../hooks'
+import { useGetDashboardQuery } from '../hooks'
 
 export default function DashboardPage() {
-  const { data: dashboardData, isLoading, isError } = useGetDashboard() // TODO: Add toast notification
+  const { data: dashboardData, isLoading, isError } = useGetDashboardQuery()
+
+  useEffect(() => {
+    if (isError) toast.error('Não foi possível carregar os dados do dashboard.')
+  }, [isError])
 
   return (
     <div className="flex flex-1 flex-col">

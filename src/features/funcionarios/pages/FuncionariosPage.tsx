@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { toast } from 'sonner'
 import { ButtonAddFuncionario } from '../components/ButtonAddFuncionario'
 import { FiltrosFuncionario } from '../components/FiltrosFuncionario'
 import { TabelaFuncionarios } from '../components/TabelaFuncionarios'
@@ -28,6 +29,10 @@ export default function FuncionariosPage() {
     query: debouncedSearchTerm,
     status: statusFuncionario,
   })
+
+  useEffect(() => {
+    if (isError) toast.error('Não foi possível carregar os funcionários.')
+  }, [isError])
 
   useEffect(() => {
     setPage(1)

@@ -1,1 +1,1 @@
-export * from './useGetDashboard'
+export * from './useGetDashboardQuery'
