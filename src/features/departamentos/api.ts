@@ -1,6 +1,7 @@
 import { httpClient } from '../../lib/api-client'
 import type { CadastrarDepartamentoFormSchema } from './schemas/cadastrar-departamento'
 import type { DepartamentoPaginatedResponse } from './types/departamento-paginated-response'
+import type { DepartamentoResponse } from './types/departamento-response'
 import type { GetDepartamentosParams } from './types/get-departamentos-params'
 
 export const getDepartamentos = async ({
@@ -23,8 +24,26 @@ export const getDepartamentos = async ({
   return response.data
 }
 
+export const getDepartamento = async (departamentoId: string) => {
+  const response = await httpClient.get<DepartamentoResponse>(`/departamentos/${departamentoId}`)
+
+  return response.data
+}
+
 export const cadastrarDepartamento = async (data: CadastrarDepartamentoFormSchema) => {
   const response = await httpClient.post('/departamentos', data)
+
+  return response.data
+}
+
+export const desativarDepartamento = async (departamentoId: string) => {
+  const response = await httpClient.post(`/departamentos/${departamentoId}/desativar`)
+
+  return response.data
+}
+
+export const ativarDepartamento = async (departamentoId: string) => {
+  const response = await httpClient.post(`/departamentos/${departamentoId}/reativar`)
 
   return response.data
 }

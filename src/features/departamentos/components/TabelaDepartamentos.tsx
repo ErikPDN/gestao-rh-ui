@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom'
 import { statusToStatusDepartamento } from '../../../lib/utils/status-to-status-departamento'
 import type { DepartamentoResponse } from '../types/departamento-response'
 import { BadgeStatusDepartamento } from './BadgeStatusDepartamento'
@@ -24,16 +25,21 @@ export const TabelaDepartamentos = ({ isLoading, departamentos }: TabelaDepartam
             </tr>
           </thead>
           <tbody>
-            {departamentos?.map((departamento, index) => (
+            {departamentos?.map((departamento) => (
               <tr
-                key={index}
-                className="bg-background cursor-pointer transition-colors duration-75 hover:bg-zinc-100"
+                key={departamento.id}
+                className="bg-background relative cursor-pointer transition-colors duration-75 hover:bg-zinc-100"
               >
-                <td className="flex flex-col gap-0.5 p-3">
-                  <span className="text-sm font-medium text-zinc-950">{departamento.nome}</span>
-                  <p className="text-xs text-zinc-500">
-                    {departamento.descricao ?? 'Sem descrição'}
-                  </p>
+                <td className="p-3">
+                  <NavLink
+                    to={`/departamentos/${departamento.id}`}
+                    className="flex flex-col gap-0.5 after:absolute after:inset-0 after:content-['']"
+                  >
+                    <span className="text-sm font-medium text-zinc-950">{departamento.nome}</span>
+                    <span className="text-xs text-zinc-500">
+                      {departamento.descricao ?? 'Sem descrição'}
+                    </span>
+                  </NavLink>
                 </td>
                 <td className="p-3">
                   <span
@@ -49,9 +55,7 @@ export const TabelaDepartamentos = ({ isLoading, departamentos }: TabelaDepartam
                   <span className="text-sm text-zinc-500">{departamento.totalCargos}</span>
                 </td>
                 <td className="p-3">
-                  <BadgeStatusDepartamento
-                    status={statusToStatusDepartamento(departamento.ativo)}
-                  />
+                  <BadgeStatusDepartamento status={statusToStatusDepartamento(departamento.ativo)} />
                 </td>
               </tr>
             ))}

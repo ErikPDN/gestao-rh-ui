@@ -60,7 +60,7 @@ export const ConfirmDialog = ({
                 disabled={isLoading}
                 className={`${
                   variant === 'primary'
-                    ? 'bg-zinc-900 text-white hover:bg-zinc-500'
+                    ? 'bg-zinc-900 text-white hover:bg-zinc-700'
                     : 'bg-red-600 text-white hover:bg-red-700'
                 } cursor-pointer rounded-md px-3 py-1.5 text-sm font-medium transition-colors duration-75 disabled:cursor-not-allowed disabled:opacity-50`}
               >
