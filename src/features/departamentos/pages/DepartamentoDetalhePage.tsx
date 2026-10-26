@@ -8,6 +8,7 @@ import { ButtonsEditDepartamento } from '../components/ButtonsEditDepartamento'
 import { ConfirmDialog } from '../../../components/ConfirmDialog'
 import { useDesativarDepartamentoMutation } from '../hooks/useDesativarDepartamentoMutation'
 import { useAtivarDepartamentoMutation } from '../hooks/useAtivarDepartamentoMutation'
+import { EditDepartamentoModal } from '../components/EditDepartamentoModal'
 
 export default function DepartamentoDetalhePage() {
   const { id } = useParams()
@@ -77,6 +78,13 @@ export default function DepartamentoDetalhePage() {
         onConfirm={isAtivo ? handleDesativarDepartamento : handleAtivarDepartamento}
         isLoading={isDesativarLoading || isAtivarLoading}
         variant={isAtivo ? 'secondary' : 'primary'}
+      />
+
+      <EditDepartamentoModal
+        isOpen={isModalEditOpen}
+        onClose={() => setIsModalEditOpen(false)}
+        departamentoNome={departamento?.nome ?? ''}
+        departamentoDescricao={departamento?.descricao ?? ''}
       />
     </div>
   )

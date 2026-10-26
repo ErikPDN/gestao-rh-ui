@@ -47,3 +47,15 @@ export const ativarDepartamento = async (departamentoId: string) => {
 
   return response.data
 }
+
+export const updateDepartamento = async (
+  departamentoId: string,
+  data: Partial<CadastrarDepartamentoFormSchema>,
+) => {
+  const response = await httpClient.patch<DepartamentoResponse>(
+    `/departamentos/${departamentoId}`,
+    data,
+  )
+
+  return response.data
+}
