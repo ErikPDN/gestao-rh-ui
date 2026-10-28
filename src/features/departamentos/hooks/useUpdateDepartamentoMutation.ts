@@ -1,13 +1,13 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { updateDepartamento } from '../api'
-import type { UpdateDepartamentoFormSchema } from '../schemas/update-departamento'
+import type { UpdateDepartamentoSchema } from '../schemas/update-departamento'
 
 export const useUpdateDepartamentoMutation = (departamentoId: string) => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: (data: UpdateDepartamentoFormSchema) => updateDepartamento(departamentoId, data),
+    mutationFn: (data: UpdateDepartamentoSchema) => updateDepartamento(departamentoId, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['departamentos'] })
       queryClient.invalidateQueries({ queryKey: ['departamento', departamentoId] })

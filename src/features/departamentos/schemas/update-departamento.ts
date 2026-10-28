@@ -7,4 +7,4 @@ export const updateDepartamentoSchema = cadastrarDepartamentoSchema
     message: 'Informe pelo menos um campo para atualizar o departamento',
   })
 
-export type UpdateDepartamentoFormSchema = z.infer<typeof updateDepartamentoSchema>
+export type UpdateDepartamentoSchema = z.infer<typeof updateDepartamentoSchema>

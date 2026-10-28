@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 import {
   updateDepartamentoSchema,
-  type UpdateDepartamentoFormSchema,
+  type UpdateDepartamentoSchema,
 } from '../schemas/update-departamento'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useParams } from 'react-router-dom'
@@ -24,7 +24,7 @@ export const EditDepartamentoForm = ({
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<UpdateDepartamentoFormSchema>({
+  } = useForm<UpdateDepartamentoSchema>({
     resolver: zodResolver(updateDepartamentoSchema),
     defaultValues: {
       nome: departamentoNome,
@@ -34,7 +34,7 @@ export const EditDepartamentoForm = ({
 
   const { mutate: updateDepartamento, isPending } = useUpdateDepartamentoMutation(id as string)
 
-  const onSubmit = (data: UpdateDepartamentoFormSchema) => {
+  const onSubmit = (data: UpdateDepartamentoSchema) => {
     updateDepartamento(data, { onSuccess: onClose })
   }
 

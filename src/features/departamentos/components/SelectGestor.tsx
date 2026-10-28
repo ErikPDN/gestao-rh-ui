@@ -9,9 +9,8 @@ interface GestorOption {
 
 interface SelectGestorProps {
   id: string
-  label: string
   options: GestorOption[]
-  value: string
+  value?: string
   onChange: (id: string) => void
   placeholder: string
   disabled?: boolean
@@ -20,7 +19,6 @@ interface SelectGestorProps {
 
 export const SelectGestor = ({
   id,
-  label,
   options,
   value,
   onChange,
@@ -37,10 +35,7 @@ export const SelectGestor = ({
   }
 
   return (
-    <div className="relative w-full">
-      <label htmlFor={id} className="text-sm font-medium text-zinc-700">
-        {label}
-      </label>
+    <div className="relative w-full max-w-sm">
       <button
         type="button"
         id={id}
@@ -58,7 +53,9 @@ export const SelectGestor = ({
       </button>
       {isOpen && (
         <div className="bg-background absolute top-full left-0 z-50 mt-1 w-full rounded-lg border border-zinc-200 p-1 shadow-lg">
-          {options.length === 0 && <p>Sem gestores disponíveis</p>}
+          {options.length === 0 && (
+            <p className="px-3 py-2 text-sm text-zinc-400">Sem gestores disponíveis</p>
+          )}
           {options.map((option) => (
             <button
               type="button"
@@ -66,7 +63,7 @@ export const SelectGestor = ({
               onClick={() => handleSelect(option.id)}
               className="flex w-full cursor-pointer items-center justify-between rounded-md px-3 py-2 text-left hover:bg-zinc-100"
             >
-              <div className="flex flex-col gap-1">
+              <div className="flex flex-col gap-0.5">
                 <span className="text-sm text-zinc-700">{option.nome}</span>
                 <span className="text-xs text-zinc-400">{option.cargo}</span>
               </div>

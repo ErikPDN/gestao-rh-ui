@@ -7,6 +7,7 @@ import type { FuncionarioResponse } from './types/funcionario-response'
 import type { GetFuncionariosParams } from './types/get-funcionarios-params'
 
 export const getFuncionarios = async ({
+  departamentoId,
   funcionarioIds,
   query,
   page,
@@ -15,6 +16,7 @@ export const getFuncionarios = async ({
 }: GetFuncionariosParams = {}) => {
   const response = await httpClient.get<FuncionarioPaginatedResponse>('/funcionarios', {
     params: {
+      departamentoId,
       funcionarioIds: funcionarioIds?.length ? funcionarioIds.join(',') : undefined,
       query,
       page,

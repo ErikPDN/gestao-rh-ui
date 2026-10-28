@@ -4,6 +4,8 @@ export interface DepartamentoResponse {
   descricao?: string
   gestorId?: string
   gestorNome?: string
+  gestorCargo?: string
+  gestorAvatarUrl?: string
   totalCargos?: number
   totalFuncionarios?: number
   createdAt: string

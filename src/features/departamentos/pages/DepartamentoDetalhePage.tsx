@@ -9,6 +9,7 @@ import { ConfirmDialog } from '../../../components/ConfirmDialog'
 import { useDesativarDepartamentoMutation } from '../hooks/useDesativarDepartamentoMutation'
 import { useAtivarDepartamentoMutation } from '../hooks/useAtivarDepartamentoMutation'
 import { EditDepartamentoModal } from '../components/EditDepartamentoModal'
+import { ManagerCard } from '../components/ManagerCard'
 
 export default function DepartamentoDetalhePage() {
   const { id } = useParams()
@@ -86,6 +87,16 @@ export default function DepartamentoDetalhePage() {
         departamentoNome={departamento?.nome ?? ''}
         departamentoDescricao={departamento?.descricao ?? ''}
       />
+
+      {departamento && (
+        <ManagerCard
+          departamentoId={departamento.id}
+          gestorId={departamento.gestorId}
+          gestorNome={departamento.gestorNome}
+          gestorAvatarUrl={departamento.gestorAvatarUrl}
+          gestorCargo={departamento.gestorCargo}
+        />
+      )}
     </div>
   )
 }
