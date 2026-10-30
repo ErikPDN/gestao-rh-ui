@@ -10,12 +10,14 @@ import { useDesativarDepartamentoMutation } from '../hooks/useDesativarDepartame
 import { useAtivarDepartamentoMutation } from '../hooks/useAtivarDepartamentoMutation'
 import { EditDepartamentoModal } from '../components/EditDepartamentoModal'
 import { ManagerCard } from '../components/ManagerCard'
+import { TabsDepartamento } from '../components/TabsDepartamento'
 
 export default function DepartamentoDetalhePage() {
   const { id } = useParams()
 
   const [isModalEditOpen, setIsModalEditOpen] = useState(false)
   const [isModalDesativarOpen, setIsModalDesativarOpen] = useState(false)
+  const [activeTab, setActiveTab] = useState('cargos')
 
   const { data: departamento, isLoading, isError } = useGetDepartamentoQuery(id as string)
   const { mutate: desativarDepartamento, isPending: isDesativarLoading } =
@@ -97,6 +99,15 @@ export default function DepartamentoDetalhePage() {
           gestorCargo={departamento.gestorCargo}
         />
       )}
+
+      <TabsDepartamento
+        tabs={[
+          { id: 'cargos', label: 'Cargos' },
+          { id: 'colaboradores', label: 'Colaboradores' },
+        ]}
+        activeTab={activeTab}
+        onChange={setActiveTab}
+      />
     </div>
   )
 }

@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { X } from 'lucide-react'
+import { createPortal } from 'react-dom'
 import { EditDepartamentoForm } from './EditDepartamentoForm'
 
 interface EditDepartamentoModalProps {
@@ -15,7 +16,7 @@ export const EditDepartamentoModal = ({
   departamentoNome,
   departamentoDescricao,
 }: EditDepartamentoModalProps) => {
-  return (
+  return createPortal(
     <AnimatePresence>
       {isOpen && (
         <div className="fixed inset-0 z-50">
@@ -62,6 +63,7 @@ export const EditDepartamentoModal = ({
           </motion.aside>
         </div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body,
   )
 }
