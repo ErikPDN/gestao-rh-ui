@@ -11,6 +11,9 @@ import { useAtivarDepartamentoMutation } from '../hooks/useAtivarDepartamentoMut
 import { EditDepartamentoModal } from '../components/EditDepartamentoModal'
 import { ManagerCard } from '../components/ManagerCard'
 import { TabsDepartamento } from '../components/TabsDepartamento'
+import { TabelaCargos } from '../components/TabelaCargos'
+import { TabelaFuncionariosDepartamento } from '../components/TabelaFuncionariosDepartamento'
+import { useGetCargosQuery } from '../../funcionarios/hooks/useGetCargosQuery'
 
 export default function DepartamentoDetalhePage() {
   const { id } = useParams()
@@ -19,7 +22,12 @@ export default function DepartamentoDetalhePage() {
   const [isModalDesativarOpen, setIsModalDesativarOpen] = useState(false)
   const [activeTab, setActiveTab] = useState('cargos')
 
-  const { data: departamento, isLoading, isError } = useGetDepartamentoQuery(id as string)
+  const {
+    data: departamento,
+    isLoading: isDepartamentoLoading,
+    isError,
+  } = useGetDepartamentoQuery(id as string)
+  const { data: cargos, isLoading: isCargosLoading } = useGetCargosQuery(id as string)
   const { mutate: desativarDepartamento, isPending: isDesativarLoading } =
     useDesativarDepartamentoMutation(id as string)
   const { mutate: ativarDepartamento, isPending: isAtivarLoading } = useAtivarDepartamentoMutation(
@@ -108,6 +116,9 @@ export default function DepartamentoDetalhePage() {
         activeTab={activeTab}
         onChange={setActiveTab}
       />
+
+      {activeTab === 'cargos' && <TabelaCargos cargos={cargos ?? []} isLoading={isCargosLoading} />}
+      {activeTab === 'colaboradores' && <TabelaFuncionariosDepartamento />}
     </div>
   )
 }
