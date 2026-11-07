@@ -16,12 +16,20 @@ export const TabelaCargos = ({ isLoading, cargos }: TabelaCargosProps) => {
           {cargos && cargos.length !== 0 && (
             <table className="w-full text-left">
               <thead>
-                <tr className="border-b border-zinc-300 bg-zinc-100">
-                  <th className="p-3 text-sm font-medium text-zinc-500">Cargo</th>
-                  <th className="p-3 text-sm font-medium text-zinc-500">Faixa Salarial</th>
-                  <th className="p-3 text-sm font-medium text-zinc-500">Nível</th>
-                  <th className="p-3 text-right text-sm font-medium text-zinc-500">Funcionários</th>
-                  <th className="w-12 p-3">
+                <tr className="bg-zinc-100">
+                  <th className="border-b border-zinc-300 p-3 text-sm font-medium text-zinc-500">
+                    Cargo
+                  </th>
+                  <th className="border-b border-zinc-300 p-3 text-sm font-medium text-zinc-500">
+                    Faixa Salarial
+                  </th>
+                  <th className="border-b border-zinc-300 p-3 text-sm font-medium text-zinc-500">
+                    Nível
+                  </th>
+                  <th className="border-b border-zinc-300 p-3 text-right text-sm font-medium text-zinc-500">
+                    Funcionários
+                  </th>
+                  <th className="w-12 border-b border-zinc-300 p-3">
                     <span className="sr-only">Ações</span>
                   </th>
                 </tr>
@@ -31,7 +39,7 @@ export const TabelaCargos = ({ isLoading, cargos }: TabelaCargosProps) => {
                 {cargos?.map((cargo) => (
                   <tr
                     key={cargo.id}
-                    className="bg-background relative transition-colors duration-75 hover:bg-zinc-100"
+                    className="bg-background transition-colors duration-75 hover:bg-zinc-100"
                   >
                     <td className="p-3">
                       <span className="text-sm font-medium text-zinc-950">{cargo.nome}</span>
@@ -51,7 +59,7 @@ export const TabelaCargos = ({ isLoading, cargos }: TabelaCargosProps) => {
                       <span className="text-sm text-zinc-500">{cargo.nivel}</span>
                     </td>
                     <td className="justify-end p-3 text-right">
-                      <span className="text-sm text-zinc-500">{cargo.totalFuncionarios}</span>
+                      <span className="text-sm text-zinc-950">{cargo.totalFuncionarios}</span>
                     </td>
 
                     <td className="w-12 p-3 text-right">

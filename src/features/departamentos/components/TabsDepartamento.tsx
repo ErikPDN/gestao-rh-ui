@@ -9,9 +9,15 @@ interface TabsDepartamentoProps {
   tabs: Tabs[]
   onChange: (tabId: string) => void
   activeTab: string
+  onOpenModalNovoCargo?: () => void
 }
 
-export const TabsDepartamento = ({ tabs, onChange, activeTab }: TabsDepartamentoProps) => {
+export const TabsDepartamento = ({
+  tabs,
+  onChange,
+  activeTab,
+  onOpenModalNovoCargo,
+}: TabsDepartamentoProps) => {
   return (
     <div className="flex items-center justify-between">
       <div className="flex gap-4">
@@ -31,7 +37,10 @@ export const TabsDepartamento = ({ tabs, onChange, activeTab }: TabsDepartamento
       </div>
 
       {activeTab === 'cargos' ? (
-        <button className="flex w-fit cursor-pointer items-center justify-center gap-1 rounded-md bg-zinc-900 p-2.5 transition-colors duration-75 hover:bg-zinc-800">
+        <button
+          onClick={onOpenModalNovoCargo}
+          className="flex w-fit cursor-pointer items-center justify-center gap-1 rounded-md bg-zinc-900 p-2.5 transition-colors duration-75 hover:bg-zinc-800"
+        >
           <Plus size={12} className="text-white" />
           <span className="align-middle text-sm leading-none font-medium text-white">
             Novo Cargo

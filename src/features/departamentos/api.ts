@@ -1,4 +1,5 @@
 import { httpClient } from '../../lib/api-client'
+import type { CadastrarCargoFormSchema } from './schemas/cadastrar-cargo'
 import type { CadastrarDepartamentoFormSchema } from './schemas/cadastrar-departamento'
 import type { DepartamentoPaginatedResponse } from './types/departamento-paginated-response'
 import type { DepartamentoResponse } from './types/departamento-response'
@@ -56,6 +57,12 @@ export const updateDepartamento = async (
     `/departamentos/${departamentoId}`,
     data,
   )
+
+  return response.data
+}
+
+export const cadastrarCargo = async (departamentoId: string, data: CadastrarCargoFormSchema) => {
+  const response = await httpClient.post(`/departamentos/${departamentoId}/cargos`, data)
 
   return response.data
 }

@@ -14,12 +14,14 @@ import { TabsDepartamento } from '../components/TabsDepartamento'
 import { TabelaCargos } from '../components/TabelaCargos'
 import { TabelaFuncionariosDepartamento } from '../components/TabelaFuncionariosDepartamento'
 import { useGetCargosQuery } from '../../funcionarios/hooks/useGetCargosQuery'
+import { CadastrarCargoModal } from '../components/CadastrarCargoModal'
 
 export default function DepartamentoDetalhePage() {
   const { id } = useParams()
 
   const [isModalEditOpen, setIsModalEditOpen] = useState(false)
   const [isModalDesativarOpen, setIsModalDesativarOpen] = useState(false)
+  const [isModalNovoCargoOpen, setIsModalNovoCargoOpen] = useState(false)
   const [activeTab, setActiveTab] = useState('cargos')
 
   const {
@@ -115,6 +117,13 @@ export default function DepartamentoDetalhePage() {
         ]}
         activeTab={activeTab}
         onChange={setActiveTab}
+        onOpenModalNovoCargo={() => setIsModalNovoCargoOpen(true)}
+      />
+
+      <CadastrarCargoModal
+        isOpen={isModalNovoCargoOpen}
+        departamentoId={id as string}
+        onClose={() => setIsModalNovoCargoOpen(false)}
       />
 
       {activeTab === 'cargos' && <TabelaCargos cargos={cargos ?? []} isLoading={isCargosLoading} />}
