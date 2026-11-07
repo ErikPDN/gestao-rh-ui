@@ -66,3 +66,16 @@ export const cadastrarCargo = async (departamentoId: string, data: CadastrarCarg
 
   return response.data
 }
+
+export const updateCargo = async (
+  departamentoId: string,
+  cargoId: string,
+  data: Partial<CadastrarCargoFormSchema>,
+) => {
+  const response = await httpClient.patch(
+    `/departamentos/${departamentoId}/cargos/${cargoId}`,
+    data,
+  )
+
+  return response.data
+}

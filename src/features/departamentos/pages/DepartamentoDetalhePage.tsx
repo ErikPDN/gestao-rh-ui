@@ -15,11 +15,15 @@ import { TabelaCargos } from '../components/TabelaCargos'
 import { TabelaFuncionariosDepartamento } from '../components/TabelaFuncionariosDepartamento'
 import { useGetCargosQuery } from '../../funcionarios/hooks/useGetCargosQuery'
 import { CadastrarCargoModal } from '../components/CadastrarCargoModal'
+import type { CargoResponse } from '../../funcionarios/types/cargo-response'
+import { EditCargoModal } from '../components/EditCargoModal'
 
 export default function DepartamentoDetalhePage() {
   const { id } = useParams()
 
   const [isModalEditOpen, setIsModalEditOpen] = useState(false)
+  const [isModalEditCargoOpen, setIsModalEditCargoOpen] = useState(false)
+  const [cargoEmEdicao, setCargoEmEdicao] = useState<CargoResponse | null>(null)
   const [isModalDesativarOpen, setIsModalDesativarOpen] = useState(false)
   const [isModalNovoCargoOpen, setIsModalNovoCargoOpen] = useState(false)
   const [activeTab, setActiveTab] = useState('cargos')
@@ -46,6 +50,11 @@ export default function DepartamentoDetalhePage() {
     desativarDepartamento(id as string, {
       onSuccess: () => setIsModalDesativarOpen(false),
     })
+  }
+
+  const handleOpenEditCargo = (cargo: CargoResponse) => {
+    setCargoEmEdicao(cargo)
+    setIsModalEditCargoOpen(true)
   }
 
   const handleAtivarDepartamento = () => {
@@ -126,7 +135,20 @@ export default function DepartamentoDetalhePage() {
         onClose={() => setIsModalNovoCargoOpen(false)}
       />
 
-      {activeTab === 'cargos' && <TabelaCargos cargos={cargos ?? []} isLoading={isCargosLoading} />}
+      {activeTab === 'cargos' && (
+        <TabelaCargos
+          cargos={cargos ?? []}
+          isLoading={isCargosLoading}
+          onEditCargo={handleOpenEditCargo}
+        />
+      )}
+
+      <EditCargoModal
+        cargo={cargoEmEdicao}
+        onClose={() => setIsModalEditCargoOpen(false)}
+        isOpen={isModalEditCargoOpen}
+      />
+
       {activeTab === 'colaboradores' && <TabelaFuncionariosDepartamento />}
     </div>
   )

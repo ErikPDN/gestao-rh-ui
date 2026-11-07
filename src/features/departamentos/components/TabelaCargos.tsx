@@ -4,9 +4,10 @@ import type { CargoResponse } from '../../funcionarios/types/cargo-response'
 interface TabelaCargosProps {
   isLoading: boolean
   cargos?: CargoResponse[]
+  onEditCargo: (cargo: CargoResponse) => void
 }
 
-export const TabelaCargos = ({ isLoading, cargos }: TabelaCargosProps) => {
+export const TabelaCargos = ({ isLoading, cargos, onEditCargo }: TabelaCargosProps) => {
   return (
     <div className="overflow-x-auto rounded-xl border border-zinc-300">
       {isLoading ? (
@@ -66,6 +67,7 @@ export const TabelaCargos = ({ isLoading, cargos }: TabelaCargosProps) => {
                       <button
                         type="button"
                         aria-label="Editar cargo"
+                        onClick={() => onEditCargo(cargo)}
                         className="mt-1 cursor-pointer rounded-md p-1 text-zinc-500 transition-colors hover:bg-zinc-200 hover:text-zinc-950"
                       >
                         <Edit size={16} />
