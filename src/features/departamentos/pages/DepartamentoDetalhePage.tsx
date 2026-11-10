@@ -17,6 +17,7 @@ import { useGetCargosQuery } from '../../funcionarios/hooks/useGetCargosQuery'
 import { CadastrarCargoModal } from '../components/CadastrarCargoModal'
 import type { CargoResponse } from '../../funcionarios/types/cargo-response'
 import { EditCargoModal } from '../components/EditCargoModal'
+import { useDesativarCargoMutation } from '../hooks/useDesativarCargoMutation'
 
 export default function DepartamentoDetalhePage() {
   const { id } = useParams()
@@ -25,6 +26,7 @@ export default function DepartamentoDetalhePage() {
   const [isModalEditCargoOpen, setIsModalEditCargoOpen] = useState(false)
   const [cargoEmEdicao, setCargoEmEdicao] = useState<CargoResponse | null>(null)
   const [isModalDesativarOpen, setIsModalDesativarOpen] = useState(false)
+  const [isModalDesativarCargoOpen, setIsModalDesativarCargoOpen] = useState(false)
   const [isModalNovoCargoOpen, setIsModalNovoCargoOpen] = useState(false)
   const [activeTab, setActiveTab] = useState('cargos')
 
@@ -37,6 +39,9 @@ export default function DepartamentoDetalhePage() {
   const { mutate: desativarDepartamento, isPending: isDesativarLoading } =
     useDesativarDepartamentoMutation(id as string)
   const { mutate: ativarDepartamento, isPending: isAtivarLoading } = useAtivarDepartamentoMutation(
+    id as string,
+  )
+  const { mutate: desativarCargo, isPending: isDesativarCargoLoading } = useDesativarCargoMutation(
     id as string,
   )
 
@@ -63,6 +68,17 @@ export default function DepartamentoDetalhePage() {
     })
   }
 
+  const handleOpenDesativarCargo = (cargo: CargoResponse) => {
+    setCargoEmEdicao(cargo)
+    setIsModalDesativarCargoOpen(true)
+  }
+
+  const handleDesativarCargo = () => {
+    desativarCargo(cargoEmEdicao?.id as string, {
+      onSuccess: () => setIsModalDesativarCargoOpen(false),
+    })
+  }
+
   return (
     <div className="flex flex-1 flex-col space-y-6">
       <div className="flex items-center justify-between">
@@ -85,22 +101,6 @@ export default function DepartamentoDetalhePage() {
           onDesativar={() => setIsModalDesativarOpen(true)}
         />
       </div>
-
-      <ConfirmDialog
-        open={isModalDesativarOpen}
-        onCancel={() => setIsModalDesativarOpen(false)}
-        title={isAtivo ? 'Desativar departamento?' : 'Ativar departamento?'}
-        description={
-          isAtivo
-            ? 'Tem certeza que deseja desativar este departamento? Esta ação não pode ser desfeita.'
-            : 'Tem certeza que deseja ativar este departamento?'
-        }
-        confirmButtonText={isAtivo ? 'Desativar' : 'Ativar'}
-        cancelButtonText="Cancelar"
-        onConfirm={isAtivo ? handleDesativarDepartamento : handleAtivarDepartamento}
-        isLoading={isDesativarLoading || isAtivarLoading}
-        variant={isAtivo ? 'secondary' : 'primary'}
-      />
 
       <EditDepartamentoModal
         isOpen={isModalEditOpen}
@@ -140,6 +140,7 @@ export default function DepartamentoDetalhePage() {
           cargos={cargos ?? []}
           isLoading={isCargosLoading}
           onEditCargo={handleOpenEditCargo}
+          onDesativarCargo={handleOpenDesativarCargo}
         />
       )}
 
@@ -150,6 +151,34 @@ export default function DepartamentoDetalhePage() {
       />
 
       {activeTab === 'colaboradores' && <TabelaFuncionariosDepartamento />}
+
+      <ConfirmDialog
+        open={isModalDesativarOpen}
+        onCancel={() => setIsModalDesativarOpen(false)}
+        title={isAtivo ? 'Desativar departamento?' : 'Ativar departamento?'}
+        description={
+          isAtivo
+            ? 'Tem certeza que deseja desativar este departamento? Esta ação não pode ser desfeita.'
+            : 'Tem certeza que deseja ativar este departamento?'
+        }
+        confirmButtonText={isAtivo ? 'Desativar' : 'Ativar'}
+        cancelButtonText="Cancelar"
+        onConfirm={isAtivo ? handleDesativarDepartamento : handleAtivarDepartamento}
+        isLoading={isDesativarLoading || isAtivarLoading}
+        variant={isAtivo ? 'secondary' : 'primary'}
+      />
+
+      <ConfirmDialog
+        open={isModalDesativarCargoOpen}
+        onCancel={() => setIsModalDesativarCargoOpen(false)}
+        title="Desativar cargo?"
+        description="Tem certeza que deseja desativar este cargo? Esta ação não pode ser desfeita."
+        confirmButtonText="Desativar"
+        cancelButtonText="Cancelar"
+        onConfirm={handleDesativarCargo}
+        isLoading={isDesativarCargoLoading}
+        variant="secondary"
+      />
     </div>
   )
 }

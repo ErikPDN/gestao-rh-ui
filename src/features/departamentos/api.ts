@@ -79,3 +79,11 @@ export const updateCargo = async (
 
   return response.data
 }
+
+export const desativarCargo = async (departamentoId: string, cargoId: string) => {
+  const response = await httpClient.post(
+    `/departamentos/${departamentoId}/cargos/${cargoId}/desativar`,
+  )
+
+  return response.data
+}
