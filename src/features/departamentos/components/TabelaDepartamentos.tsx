@@ -55,7 +55,9 @@ export const TabelaDepartamentos = ({ isLoading, departamentos }: TabelaDepartam
                   <span className="text-sm text-zinc-500">{departamento.totalCargos}</span>
                 </td>
                 <td className="p-3">
-                  <BadgeStatusDepartamento status={statusToStatusDepartamento(departamento.ativo)} />
+                  <BadgeStatusDepartamento
+                    status={statusToStatusDepartamento(departamento.ativo)}
+                  />
                 </td>
               </tr>
             ))}

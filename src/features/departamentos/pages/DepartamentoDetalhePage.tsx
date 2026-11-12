@@ -18,6 +18,8 @@ import { CadastrarCargoModal } from '../components/CadastrarCargoModal'
 import type { CargoResponse } from '../../funcionarios/types/cargo-response'
 import { EditCargoModal } from '../components/EditCargoModal'
 import { useDesativarCargoMutation } from '../hooks/useDesativarCargoMutation'
+import { useGetFuncionariosQuery } from '../../funcionarios/hooks/useGetFuncionariosQuery'
+import { CadastrarFuncionarioModal } from '../../funcionarios/components/CadastrarFuncionarioModal'
 
 export default function DepartamentoDetalhePage() {
   const { id } = useParams()
@@ -28,6 +30,7 @@ export default function DepartamentoDetalhePage() {
   const [isModalDesativarOpen, setIsModalDesativarOpen] = useState(false)
   const [isModalDesativarCargoOpen, setIsModalDesativarCargoOpen] = useState(false)
   const [isModalNovoCargoOpen, setIsModalNovoCargoOpen] = useState(false)
+  const [isModalNovoFuncionarioOpen, setIsModalNovoFuncionarioOpen] = useState(false)
   const [activeTab, setActiveTab] = useState('cargos')
 
   const {
@@ -36,6 +39,10 @@ export default function DepartamentoDetalhePage() {
     isError,
   } = useGetDepartamentoQuery(id as string)
   const { data: cargos, isLoading: isCargosLoading } = useGetCargosQuery(id as string)
+  const { data: funcionarios, isLoading: isFuncionariosLoading } = useGetFuncionariosQuery({
+    departamentoId: id as string,
+    limit: 100,
+  })
   const { mutate: desativarDepartamento, isPending: isDesativarLoading } =
     useDesativarDepartamentoMutation(id as string)
   const { mutate: ativarDepartamento, isPending: isAtivarLoading } = useAtivarDepartamentoMutation(
@@ -75,7 +82,10 @@ export default function DepartamentoDetalhePage() {
 
   const handleDesativarCargo = () => {
     desativarCargo(cargoEmEdicao?.id as string, {
-      onSuccess: () => setIsModalDesativarCargoOpen(false),
+      onSuccess: () => {
+        setIsModalDesativarCargoOpen(false)
+        setCargoEmEdicao(null)
+      },
     })
   }
 
@@ -127,12 +137,20 @@ export default function DepartamentoDetalhePage() {
         activeTab={activeTab}
         onChange={setActiveTab}
         onOpenModalNovoCargo={() => setIsModalNovoCargoOpen(true)}
+        onOpenModalNovoFuncionario={() => setIsModalNovoFuncionarioOpen(true)}
+        totalCargos={departamento?.totalCargos ?? cargos?.length ?? 0}
+        totalColaboradores={departamento?.totalFuncionarios ?? funcionarios?.total ?? 0}
       />
 
       <CadastrarCargoModal
         isOpen={isModalNovoCargoOpen}
         departamentoId={id as string}
         onClose={() => setIsModalNovoCargoOpen(false)}
+      />
+
+      <CadastrarFuncionarioModal
+        isOpen={isModalNovoFuncionarioOpen}
+        onClose={() => setIsModalNovoFuncionarioOpen(false)}
       />
 
       {activeTab === 'cargos' && (
@@ -150,7 +168,12 @@ export default function DepartamentoDetalhePage() {
         isOpen={isModalEditCargoOpen}
       />
 
-      {activeTab === 'colaboradores' && <TabelaFuncionariosDepartamento />}
+      {activeTab === 'colaboradores' && (
+        <TabelaFuncionariosDepartamento
+          funcionarios={funcionarios?.data ?? []}
+          isLoading={isFuncionariosLoading}
+        />
+      )}
 
       <ConfirmDialog
         open={isModalDesativarOpen}
