@@ -5,6 +5,8 @@ interface AvatarProps {
 }
 
 export const Avatar = ({ funcionarioNome, avatarUrl, size = 'md' }: AvatarProps) => {
+  funcionarioNome = funcionarioNome.trim() || 'Sem Nome'
+
   const iniciais = funcionarioNome
     .split(' ')
     .map((name) => name[0])

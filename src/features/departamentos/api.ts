@@ -1,6 +1,8 @@
 import { httpClient } from '../../lib/api-client'
+import type { CadastrarCargoFormSchema } from './schemas/cadastrar-cargo'
 import type { CadastrarDepartamentoFormSchema } from './schemas/cadastrar-departamento'
 import type { DepartamentoPaginatedResponse } from './types/departamento-paginated-response'
+import type { DepartamentoResponse } from './types/departamento-response'
 import type { GetDepartamentosParams } from './types/get-departamentos-params'
 
 export const getDepartamentos = async ({
@@ -23,8 +25,65 @@ export const getDepartamentos = async ({
   return response.data
 }
 
+export const getDepartamento = async (departamentoId: string) => {
+  const response = await httpClient.get<DepartamentoResponse>(`/departamentos/${departamentoId}`)
+
+  return response.data
+}
+
 export const cadastrarDepartamento = async (data: CadastrarDepartamentoFormSchema) => {
   const response = await httpClient.post('/departamentos', data)
+
+  return response.data
+}
+
+export const desativarDepartamento = async (departamentoId: string) => {
+  const response = await httpClient.post(`/departamentos/${departamentoId}/desativar`)
+
+  return response.data
+}
+
+export const ativarDepartamento = async (departamentoId: string) => {
+  const response = await httpClient.post(`/departamentos/${departamentoId}/reativar`)
+
+  return response.data
+}
+
+export const updateDepartamento = async (
+  departamentoId: string,
+  data: Partial<CadastrarDepartamentoFormSchema>,
+) => {
+  const response = await httpClient.patch<DepartamentoResponse>(
+    `/departamentos/${departamentoId}`,
+    data,
+  )
+
+  return response.data
+}
+
+export const cadastrarCargo = async (departamentoId: string, data: CadastrarCargoFormSchema) => {
+  const response = await httpClient.post(`/departamentos/${departamentoId}/cargos`, data)
+
+  return response.data
+}
+
+export const updateCargo = async (
+  departamentoId: string,
+  cargoId: string,
+  data: Partial<CadastrarCargoFormSchema>,
+) => {
+  const response = await httpClient.patch(
+    `/departamentos/${departamentoId}/cargos/${cargoId}`,
+    data,
+  )
+
+  return response.data
+}
+
+export const desativarCargo = async (departamentoId: string, cargoId: string) => {
+  const response = await httpClient.post(
+    `/departamentos/${departamentoId}/cargos/${cargoId}/desativar`,
+  )
 
   return response.data
 }

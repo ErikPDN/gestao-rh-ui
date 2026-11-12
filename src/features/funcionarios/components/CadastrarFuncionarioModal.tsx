@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { X } from 'lucide-react'
+import { createPortal } from 'react-dom'
 import { CadastrarFuncionarioForm } from './CadastrarFuncionarioForm'
 
 interface CadastrarFuncionarioModalProps {
@@ -8,7 +9,7 @@ interface CadastrarFuncionarioModalProps {
 }
 
 export const CadastrarFuncionarioModal = ({ isOpen, onClose }: CadastrarFuncionarioModalProps) => {
-  return (
+  return createPortal(
     <AnimatePresence>
       {isOpen && (
         <div className="fixed inset-0 z-50">
@@ -51,6 +52,7 @@ export const CadastrarFuncionarioModal = ({ isOpen, onClose }: CadastrarFunciona
           </motion.aside>
         </div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body,
   )
 }

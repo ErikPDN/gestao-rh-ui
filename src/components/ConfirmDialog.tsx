@@ -1,4 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion'
+import { createPortal } from 'react-dom'
 
 interface ConfirmDialogProps {
   open: boolean
@@ -23,7 +24,7 @@ export const ConfirmDialog = ({
   isLoading = false,
   variant = 'primary',
 }: ConfirmDialogProps) => {
-  return (
+  return createPortal(
     <AnimatePresence>
       {open && (
         <div className="fixed inset-0 z-50 flex items-center justify-around">
@@ -60,7 +61,7 @@ export const ConfirmDialog = ({
                 disabled={isLoading}
                 className={`${
                   variant === 'primary'
-                    ? 'bg-zinc-900 text-white hover:bg-zinc-500'
+                    ? 'bg-zinc-900 text-white hover:bg-zinc-700'
                     : 'bg-red-600 text-white hover:bg-red-700'
                 } cursor-pointer rounded-md px-3 py-1.5 text-sm font-medium transition-colors duration-75 disabled:cursor-not-allowed disabled:opacity-50`}
               >
@@ -70,6 +71,7 @@ export const ConfirmDialog = ({
           </motion.div>
         </div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body,
   )
 }
