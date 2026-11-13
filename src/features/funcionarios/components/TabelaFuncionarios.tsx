@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom'
 import { formatCPF } from '../../../lib/utils/cpf-formatter'
 import { formatCurrency } from '../../../lib/utils/currency-formatter'
 import { dateToStatusFuncionario } from '../../../lib/utils/date-to-status-funcionario'
@@ -31,10 +32,15 @@ export const TabelaFuncionarios = ({ isLoading, funcionarios }: TabelaFuncionari
             {funcionarios?.map((funcionario, index) => (
               <tr
                 key={index}
-                className="bg-background cursor-pointer transition-colors duration-75 hover:bg-zinc-100"
+                className="bg-background relative cursor-pointer transition-colors duration-75 hover:bg-zinc-100"
               >
                 <td className="p-3">
-                  <span className="text-sm font-medium text-zinc-950">{funcionario.nome}</span>
+                  <NavLink
+                    to={`/funcionarios/${funcionario.id}`}
+                    className="after:absolute after:inset-0 after:content-['']"
+                  >
+                    <span className="text-sm font-medium text-zinc-950">{funcionario.nome}</span>
+                  </NavLink>
                 </td>
                 <td className="p-3">
                   <span className="font-mono text-sm text-zinc-500">

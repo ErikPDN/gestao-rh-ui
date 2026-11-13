@@ -34,6 +34,12 @@ export const getDepartamentos = async () => {
   return response.data
 }
 
+export const getFuncionario = async (funcionarioId: string) => {
+  const response = await httpClient.get<FuncionarioResponse>(`/funcionarios/${funcionarioId}`)
+
+  return response.data
+}
+
 export const getCargosByDepartamento = async (departamentoId: string) => {
   const response = await httpClient.get<CargoResponse[]>(`/departamentos/${departamentoId}/cargos`)
 
