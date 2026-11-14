@@ -2,22 +2,36 @@ import { NavLink, useParams } from 'react-router-dom'
 import { BadgeStatusFuncionario } from '../components/BadgeStatusFuncionario'
 import { useGetFuncionarioQuery } from '../hooks/useGetFuncionarioQuery'
 import { statusToStatusFuncionario } from '../../../lib/utils/status-to-status-funcionario'
-import { Dot, Edit } from 'lucide-react'
+import { Dot } from 'lucide-react'
 import { Avatar } from '../../../components/Avatar'
 import { useState } from 'react'
 import { ButtonsEditFuncionario } from '../components/ButtonsEditFuncionario'
 import { EditFuncionarioModal } from '../components/EditFuncionarioModal'
+import { ConfirmDialog } from '../../../components/ConfirmDialog'
+import { useDemitirFuncionarioMutation } from '../hooks/useDemitirFuncionarioMutation'
+import { dateFormatter } from '../../../lib/utils/date-formattet'
 
 export default function FuncionarioDetalhePage() {
   const { id: funcionarioId } = useParams()
 
   const { data: funcionario, isLoading, isError } = useGetFuncionarioQuery(funcionarioId as string)
+  const { mutate: demitirFuncionario, isPending: isDemitirLoading } = useDemitirFuncionarioMutation(
+    funcionarioId as string,
+  )
 
   const [isModalEditOpen, setIsModalEditOpen] = useState(false)
   const [isModalDemitirOpen, setIsModalDemitirOpen] = useState(false)
 
   const isFuncionarioAtivo =
     funcionario?.dataDemissao === null || funcionario?.dataDemissao === undefined
+
+  const handleDemitirFuncionario = () => {
+    demitirFuncionario(funcionarioId as string, {
+      onSuccess: () => {
+        setIsModalDemitirOpen(false)
+      },
+    })
+  }
 
   return (
     <div className="flex flex-1 flex-col space-y-6">
@@ -50,6 +64,7 @@ export default function FuncionarioDetalhePage() {
           isAtivo={isFuncionarioAtivo}
           onEdit={() => setIsModalEditOpen(true)}
           onDemitir={() => setIsModalDemitirOpen(true)}
+          isFuncionarioAtivo={isFuncionarioAtivo}
         />
       </div>
 
@@ -63,6 +78,18 @@ export default function FuncionarioDetalhePage() {
         funcionarioSalario={funcionario?.salario || 0}
         funcionarioDataNascimento={funcionario?.dataNascimento}
         funcionarioDataAdmissao={funcionario?.dataAdmissao}
+      />
+
+      <ConfirmDialog
+        open={isModalDemitirOpen}
+        onCancel={() => setIsModalDemitirOpen(false)}
+        title={`Demitir ${funcionario?.nome}?`}
+        description={`A data de demissão será registrada como ${dateFormatter(new Date())} e o status passará para Desligado.`}
+        confirmButtonText="Demitir"
+        cancelButtonText="Cancelar"
+        onConfirm={handleDemitirFuncionario}
+        isLoading={isDemitirLoading}
+        variant="secondary"
       />
     </div>
   )

@@ -63,3 +63,11 @@ export const updateFuncionario = async (
 
   return response.data
 }
+
+export const demitirFuncionario = async (funcionarioId: string) => {
+  const response = await httpClient.post<FuncionarioResponse>(
+    `/funcionarios/${funcionarioId}/demitir`,
+  )
+
+  return response.data
+}
