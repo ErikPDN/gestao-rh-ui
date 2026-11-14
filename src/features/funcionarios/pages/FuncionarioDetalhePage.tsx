@@ -2,13 +2,22 @@ import { NavLink, useParams } from 'react-router-dom'
 import { BadgeStatusFuncionario } from '../components/BadgeStatusFuncionario'
 import { useGetFuncionarioQuery } from '../hooks/useGetFuncionarioQuery'
 import { statusToStatusFuncionario } from '../../../lib/utils/status-to-status-funcionario'
-import { Dot } from 'lucide-react'
+import { Dot, Edit } from 'lucide-react'
 import { Avatar } from '../../../components/Avatar'
+import { useState } from 'react'
+import { ButtonsEditFuncionario } from '../components/ButtonsEditFuncionario'
+import { EditFuncionarioModal } from '../components/EditFuncionarioModal'
 
 export default function FuncionarioDetalhePage() {
   const { id: funcionarioId } = useParams()
 
   const { data: funcionario, isLoading, isError } = useGetFuncionarioQuery(funcionarioId as string)
+
+  const [isModalEditOpen, setIsModalEditOpen] = useState(false)
+  const [isModalDemitirOpen, setIsModalDemitirOpen] = useState(false)
+
+  const isFuncionarioAtivo =
+    funcionario?.dataDemissao === null || funcionario?.dataDemissao === undefined
 
   return (
     <div className="flex flex-1 flex-col space-y-6">
@@ -36,7 +45,25 @@ export default function FuncionarioDetalhePage() {
             </div>
           </div>
         </div>
+
+        <ButtonsEditFuncionario
+          isAtivo={isFuncionarioAtivo}
+          onEdit={() => setIsModalEditOpen(true)}
+          onDemitir={() => setIsModalDemitirOpen(true)}
+        />
       </div>
+
+      <EditFuncionarioModal
+        isOpen={isModalEditOpen}
+        onClose={() => setIsModalEditOpen(false)}
+        funcionarioCpf={funcionario?.cpfCnpj || ''}
+        funcionarioNome={funcionario?.nome || ''}
+        funcionarioDepartamentoId={funcionario?.departamentoId || ''}
+        funcionarioCargoId={funcionario?.cargoId || ''}
+        funcionarioSalario={funcionario?.salario || 0}
+        funcionarioDataNascimento={funcionario?.dataNascimento}
+        funcionarioDataAdmissao={funcionario?.dataAdmissao}
+      />
     </div>
   )
 }

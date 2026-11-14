@@ -51,3 +51,15 @@ export const cadastrarFuncionario = async (data: CadastrarFuncionarioSchema) => 
 
   return response.data
 }
+
+export const updateFuncionario = async (
+  funcionarioId: string,
+  data: Partial<CadastrarFuncionarioSchema>,
+) => {
+  const response = await httpClient.patch<FuncionarioResponse>(
+    `/funcionarios/${funcionarioId}`,
+    data,
+  )
+
+  return response.data
+}
