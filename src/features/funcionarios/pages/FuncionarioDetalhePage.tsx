@@ -10,6 +10,7 @@ import { EditFuncionarioModal } from '../components/EditFuncionarioModal'
 import { ConfirmDialog } from '../../../components/ConfirmDialog'
 import { useDemitirFuncionarioMutation } from '../hooks/useDemitirFuncionarioMutation'
 import { dateFormatter } from '../../../lib/utils/date-formattet'
+import { DetalhesFuncionario } from '../components/DetalhesFuncionario'
 
 export default function FuncionarioDetalhePage() {
   const { id: funcionarioId } = useParams()
@@ -67,6 +68,8 @@ export default function FuncionarioDetalhePage() {
           isFuncionarioAtivo={isFuncionarioAtivo}
         />
       </div>
+
+      <DetalhesFuncionario funcionario={funcionario} isLoading={isLoading} isError={isError} />
 
       <EditFuncionarioModal
         isOpen={isModalEditOpen}

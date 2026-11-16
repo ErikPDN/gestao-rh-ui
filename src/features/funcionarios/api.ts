@@ -71,3 +71,11 @@ export const demitirFuncionario = async (funcionarioId: string) => {
 
   return response.data
 }
+
+export const getCargoByDepartamentoAndCargo = async (departamentoId: string, cargoId: string) => {
+  const response = await httpClient.get<CargoResponse>(
+    `/departamentos/${departamentoId}/cargos/${cargoId}`,
+  )
+
+  return response.data
+}
