@@ -1,3 +1,4 @@
+import { useGetCargoQuery } from '../hooks/useGetCargoQuery'
 import type { FuncionarioResponse } from '../types/funcionario-response'
 import { DadosFuncionarioCard } from './DadosFuncionarioCard'
 import { RemuneracaoFuncionarioCard } from './RemuneracaoFuncionarioCard'
@@ -13,14 +14,25 @@ export const DetalhesFuncionario = ({
   isLoading,
   isError,
 }: DetalhesFuncionarioProps) => {
+  const { data: cargo, isLoading: isLoadingCargo } = useGetCargoQuery(
+    funcionario?.departamentoId,
+    funcionario?.cargoId,
+  )
+
   return (
     <div className="grid grid-cols-1 items-start gap-4 lg:grid-cols-2">
       <RemuneracaoFuncionarioCard
         funcionarioSalario={funcionario?.salario}
-        funcionarioDepartamentoId={funcionario?.departamentoId}
-        funcionarioCargoId={funcionario?.cargoId}
+        cargoSalarioBase={cargo?.salarioBase}
+        cargoSalarioTeto={cargo?.salarioTeto}
       />
-      <DadosFuncionarioCard />
+      <DadosFuncionarioCard
+        funcionarioCpf={funcionario?.cpfCnpj}
+        funcionarioNascimento={funcionario?.dataNascimento}
+        funcionarioNivel={cargo?.nivel}
+        funcionarioDataAdmissao={funcionario?.dataAdmissao}
+        funcionarioDataDemissao={funcionario?.dataDemissao}
+      />
     </div>
   )
 }
