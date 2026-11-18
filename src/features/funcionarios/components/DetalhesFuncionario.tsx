@@ -9,15 +9,9 @@ interface DetalhesFuncionarioProps {
   isError: boolean
 }
 
-export const DetalhesFuncionario = ({
-  funcionario,
-  isLoading,
-  isError,
-}: DetalhesFuncionarioProps) => {
-  const { data: cargo, isLoading: isLoadingCargo } = useGetCargoQuery(
-    funcionario?.departamentoId,
-    funcionario?.cargoId,
-  )
+export const DetalhesFuncionario = ({ funcionario }: DetalhesFuncionarioProps) => {
+  // TODO: Criar skeletons e estado de erro usando isLoading/isError (props) e isLoading do cargo
+  const { data: cargo } = useGetCargoQuery(funcionario?.departamentoId, funcionario?.cargoId)
 
   return (
     <div className="grid grid-cols-1 items-start gap-4 lg:grid-cols-2">

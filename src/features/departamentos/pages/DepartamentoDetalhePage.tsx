@@ -33,11 +33,8 @@ export default function DepartamentoDetalhePage() {
   const [isModalNovoFuncionarioOpen, setIsModalNovoFuncionarioOpen] = useState(false)
   const [activeTab, setActiveTab] = useState('cargos')
 
-  const {
-    data: departamento,
-    isLoading: isDepartamentoLoading,
-    isError,
-  } = useGetDepartamentoQuery(id as string)
+  // TODO: Criar skeleton para o carregamento do departamento (isLoading de useGetDepartamentoQuery)
+  const { data: departamento, isError } = useGetDepartamentoQuery(id as string)
   const { data: cargos, isLoading: isCargosLoading } = useGetCargosQuery(id as string)
   const { data: funcionarios, isLoading: isFuncionariosLoading } = useGetFuncionariosQuery({
     departamentoId: id as string,
