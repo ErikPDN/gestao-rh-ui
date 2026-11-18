@@ -13,7 +13,7 @@ export const DashboardChart = ({ funcionarioPorDepartamento }: DashboardChartPro
       {funcionarioPorDepartamento.map((dept) => (
         <NavLink
           key={dept.departamentoNome}
-          to={`/departamentos/${encodeURIComponent(dept.departamentoNome)}`}
+          to={`/departamentos/${dept.departamentoId}`}
           className="flex items-center gap-3 rounded-md p-2 transition-colors hover:bg-gray-200"
         >
           <span className="w-36 shrink-0 text-xs text-zinc-800">{dept.departamentoNome}</span>
