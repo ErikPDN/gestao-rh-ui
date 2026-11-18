@@ -37,7 +37,7 @@ export const SelectField = ({
   }
 
   return (
-    <div className="relative w-full">
+    <div className="relative flex w-full flex-col gap-1">
       <label htmlFor={id} className="text-sm font-medium text-zinc-700">
         {label}
       </label>
@@ -72,7 +72,7 @@ export const SelectField = ({
           ))}
         </div>
       )}
-      {error && <p className="mt-1 text-xs text-red-600">{error}</p>}
+      {error && <p className="text-xs text-red-600">{error}</p>}
     </div>
   )
 }

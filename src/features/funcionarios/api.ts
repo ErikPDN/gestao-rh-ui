@@ -34,6 +34,12 @@ export const getDepartamentos = async () => {
   return response.data
 }
 
+export const getFuncionario = async (funcionarioId: string) => {
+  const response = await httpClient.get<FuncionarioResponse>(`/funcionarios/${funcionarioId}`)
+
+  return response.data
+}
+
 export const getCargosByDepartamento = async (departamentoId: string) => {
   const response = await httpClient.get<CargoResponse[]>(`/departamentos/${departamentoId}/cargos`)
 
@@ -42,6 +48,34 @@ export const getCargosByDepartamento = async (departamentoId: string) => {
 
 export const cadastrarFuncionario = async (data: CadastrarFuncionarioSchema) => {
   const response = await httpClient.post<FuncionarioResponse>('/funcionarios', data)
+
+  return response.data
+}
+
+export const updateFuncionario = async (
+  funcionarioId: string,
+  data: Partial<CadastrarFuncionarioSchema>,
+) => {
+  const response = await httpClient.patch<FuncionarioResponse>(
+    `/funcionarios/${funcionarioId}`,
+    data,
+  )
+
+  return response.data
+}
+
+export const demitirFuncionario = async (funcionarioId: string) => {
+  const response = await httpClient.post<FuncionarioResponse>(
+    `/funcionarios/${funcionarioId}/demitir`,
+  )
+
+  return response.data
+}
+
+export const getCargoByDepartamentoAndCargo = async (departamentoId: string, cargoId: string) => {
+  const response = await httpClient.get<CargoResponse>(
+    `/departamentos/${departamentoId}/cargos/${cargoId}`,
+  )
 
   return response.data
 }
