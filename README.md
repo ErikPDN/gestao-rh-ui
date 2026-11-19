@@ -51,6 +51,18 @@ A aplicação ficará disponível em <http://localhost:3000>.
 
 > As requisições usam `withCredentials: true`, então o backend precisa permitir CORS com credenciais para a origem `http://localhost:3000`.
 
+Em produção a variável vale `/api` (URL relativa): o nginx do container repassa `/api/*` ao gateway. Veja [Deploy](#deploy).
+
+## Deploy
+
+O frontend é publicado no Google Cloud Run como um container nginx (build multi-stage em [`Dockerfile`](Dockerfile)) que serve a SPA e faz proxy de `/api/*` para o gateway. Para publicar:
+
+```bash
+bash infra/deploy.sh
+```
+
+O passo a passo completo (pré-requisitos, ordem do deploy, variáveis `VITE_API_URL` e `GATEWAY_HOST`, verificação e solução de problemas) está em [docs/DEPLOY.md](docs/DEPLOY.md).
+
 ## Scripts
 
 | Comando             | Descrição                                         |
@@ -78,6 +90,8 @@ src/
 ├── lib/          # Cliente HTTP, query client e store de autenticação
 └── types/        # Tipos compartilhados
 ```
+
+Na raiz também ficam `Dockerfile` e `nginx.conf` (imagem de produção), `infra/` (script de deploy) e `docs/` (documentação de deploy).
 
 Cada feature segue, em geral, a mesma organização interna: `api`, `components`, `hooks`, `pages`, `schemas` e `types`.
 

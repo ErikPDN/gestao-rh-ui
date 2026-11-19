@@ -26,4 +26,4 @@ dist-ssr
 CLAUDE.md
 ESTRUTURA.md
 
-.env
+*.env
