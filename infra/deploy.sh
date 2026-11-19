@@ -6,8 +6,9 @@ PROJECT=sd-ufg-2026
 REGION=us-central1
 REGISTRY=$REGION-docker.pkg.dev/$PROJECT/gestao-rh
 
-PROJECT_NUMBER=$(gcloud projects describe "$PROJECT" --format='value(projectNumber)')
-GATEWAY_HOST="api-gateway-$PROJECT_NUMBER.$REGION.run.app"
+GATEWAY_HOST=$(gcloud run services describe api-gateway \
+  --region "$REGION" --project "$PROJECT" \
+  --format='value(status.url)' | sed 's|^https://||')
 TAG=$(git rev-parse --short HEAD)
 
 docker build --build-arg VITE_API_URL=/api -t "$REGISTRY/frontend:$TAG" .
