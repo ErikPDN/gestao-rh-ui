@@ -1,11 +1,12 @@
-import { SearchBar } from '../../components/SearchBar'
 import { Avatar } from '../../components/Avatar'
 import { Fragment } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { useBreadcrumbs } from '../../hooks/useBreadcrumbs'
+import { useAuth } from '../../hooks/useAuth'
 
 export default function HeaderLayout() {
   const { crumbs, id } = useBreadcrumbs()
+  const { usuario } = useAuth()
 
   return (
     <header className="relative flex h-14 items-center justify-between border-b border-zinc-300 bg-zinc-100 px-6">
@@ -32,12 +33,12 @@ export default function HeaderLayout() {
           })}
         </nav>
         <div className="flex items-center gap-4">
-          <SearchBar />
-
-          {/* TODO: Implementar User Profile Button */}
-          <button type="button" className="cursor-pointer" onClick={() => {}}>
-            <Avatar funcionarioNome="Erik Pereira" size="sm" />
-          </button>
+          <NavLink
+            to="/me"
+            className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-none transition-colors duration-75 hover:bg-zinc-200"
+          >
+            <Avatar funcionarioNome={usuario?.nome || 'Sem Nome'} size="sm" />
+          </NavLink>
         </div>
       </div>
     </header>

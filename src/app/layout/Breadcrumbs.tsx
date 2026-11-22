@@ -16,6 +16,7 @@ const NomeFuncionario = ({ id }: { id: string }) => {
 
 export const ROUTES: { path: string; crumbs: Crumb[] }[] = [
   { path: '/dashboard', crumbs: [{ label: 'Dashboard' }] },
+  { path: '/me', crumbs: [{ label: 'Meu Perfil' }] },
   { path: '/funcionarios', crumbs: [{ label: 'Funcionários' }] },
   {
     path: '/funcionarios/:id',
