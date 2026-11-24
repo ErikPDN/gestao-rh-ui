@@ -81,10 +81,7 @@ export const EditFuncionarioForm = ({
   }
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit, (error) => console.error(error))}
-      className="flex min-h-0 flex-1 flex-col"
-    >
+    <form onSubmit={handleSubmit(onSubmit)} className="flex min-h-0 flex-1 flex-col">
       <div className="scrollbar-hidden flex-1 space-y-6 overflow-y-auto p-6">
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-0.5">

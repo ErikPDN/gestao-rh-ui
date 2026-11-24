@@ -27,7 +27,15 @@ export default function ProfilePage() {
           userAvatarUrl={profileData?.avatarUrl}
           isLoadingUser={isLoading}
         />
-        <ProfileInfoCard />
+        <ProfileInfoCard
+          funcionarioId={profileData?.funcionarioId}
+          userName={profileData?.nome}
+          userEmail={profileData?.email}
+          roles={profileData?.roles}
+          cargo={profileData?.cargo}
+          departamento={profileData?.departamento}
+          isLoadingUser={isLoading}
+        />
       </div>
     </div>
   )

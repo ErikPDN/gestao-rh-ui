@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { cadastrarDepartamento } from '../api'
 import { toast } from 'sonner'
+import { getErrorMessage } from '../../../lib/utils/get-error-message'
 
 export const useCadastrarDepartamentoMutation = () => {
   const queryClient = useQueryClient()
@@ -13,9 +14,10 @@ export const useCadastrarDepartamentoMutation = () => {
     },
     onError: (error) => {
       toast.error(
-        error instanceof Error
-          ? error.message
-          : 'Ocorreu um erro ao cadastrar o departamento. Tente novamente mais tarde.',
+        getErrorMessage(
+          error,
+          'Ocorreu um erro ao cadastrar o departamento. Tente novamente mais tarde.',
+        ),
       )
     },
   })

@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
+import { getErrorMessage } from '../../../lib/utils/get-error-message'
 import { cadastrarCargo } from '../api'
 import type { CadastrarCargoFormSchema } from '../schemas/cadastrar-cargo'
 
@@ -15,9 +16,7 @@ export const useCadastrarCargoMutation = (departamentoId: string) => {
     },
     onError: (error) => {
       toast.error(
-        error instanceof Error
-          ? error.message
-          : 'Ocorreu um erro ao cadastrar o cargo. Tente novamente mais tarde.',
+        getErrorMessage(error, 'Ocorreu um erro ao cadastrar o cargo. Tente novamente mais tarde.'),
       )
     },
   })

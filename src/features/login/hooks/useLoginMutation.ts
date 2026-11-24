@@ -2,6 +2,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useAuthStore } from '../../../lib/store/auth-store'
 import { login } from '../api'
 import { toast } from 'sonner'
+import { getErrorMessage } from '../../../lib/utils/get-error-message'
 
 export const useLoginMutation = () => {
   const setSession = useAuthStore((state) => state.setSession)
@@ -13,9 +14,10 @@ export const useLoginMutation = () => {
     },
     onError: (error) => {
       toast.error(
-        error instanceof Error
-          ? error.message
-          : 'Ocorreu um erro ao tentar fazer login. Tente novamente mais tarde.',
+        getErrorMessage(
+          error,
+          'Ocorreu um erro ao tentar fazer login. Tente novamente mais tarde.',
+        ),
       )
     },
   })

@@ -2,6 +2,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useAuthStore } from '../../../lib/store/auth-store'
 import { logout } from '../api'
 import { toast } from 'sonner'
+import { getErrorMessage } from '../../../lib/utils/get-error-message'
 
 export const useLogoutMutation = () => {
   const clearSession = useAuthStore((state) => state.clearSession)
@@ -14,9 +15,10 @@ export const useLogoutMutation = () => {
     },
     onError: (error) => {
       toast.error(
-        error instanceof Error
-          ? error.message
-          : 'Ocorreu um erro ao tentar fazer logout. Tente novamente mais tarde.',
+        getErrorMessage(
+          error,
+          'Ocorreu um erro ao tentar fazer logout. Tente novamente mais tarde.',
+        ),
       )
     },
   })
