@@ -50,6 +50,9 @@ export default function DepartamentoDetalhePage() {
   )
 
   const isAtivo = departamento?.ativo === true
+  const gestorAvatarUrl = funcionarios?.data.find(
+    (funcionario) => funcionario.id === departamento?.gestorId,
+  )?.avatarUrl
 
   useEffect(() => {
     if (isError) toast.error('Não foi possível carregar os detalhes do departamento.')
@@ -121,7 +124,7 @@ export default function DepartamentoDetalhePage() {
           departamentoId={departamento.id}
           gestorId={departamento.gestorId}
           gestorNome={departamento.gestorNome}
-          gestorAvatarUrl={departamento.gestorAvatarUrl}
+          gestorAvatarUrl={gestorAvatarUrl}
           gestorCargo={departamento.gestorCargo}
         />
       )}

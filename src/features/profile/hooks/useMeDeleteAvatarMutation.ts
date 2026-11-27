@@ -1,20 +1,19 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { getErrorMessage } from '../../../lib/utils/get-error-message'
+import { deleteAvatar } from '../api'
 
-export const useMeDeleteAvatarMutation = (userId: string) => {
+export const useMeDeleteAvatarMutation = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: () => {},
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['auth', 'me'] })
-    },
+    mutationFn: deleteAvatar,
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['auth', 'me'] }),
     onError: (error) => {
       toast.error(
         getErrorMessage(
           error,
-          'Ocorreu um erro ao atualizar a foto de perfil. Tente novamente mais tarde.',
+          'Ocorreu um erro ao excluir a foto de perfil. Tente novamente mais tarde.',
         ),
       )
     },

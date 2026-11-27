@@ -26,7 +26,6 @@ interface ProfileInfoCardProps {
   funcionarioId?: string
   userName?: string
   userEmail?: string
-  roles?: string[]
   cargo?: string
   departamento?: string
   isLoadingUser?: boolean
@@ -36,7 +35,6 @@ export const ProfileInfoCard = ({
   funcionarioId,
   userName,
   userEmail,
-  roles,
   cargo,
   departamento,
   isLoadingUser,

@@ -38,7 +38,11 @@ export default function FuncionarioDetalhePage() {
     <div className="flex flex-1 flex-col space-y-6">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <Avatar funcionarioNome={funcionario?.nome || ''} size="lg" />
+          <Avatar
+            funcionarioNome={funcionario?.nome || ''}
+            size="lg"
+            avatarUrl={funcionario?.avatarUrl}
+          />
           <div className="flex flex-col space-y-1.5">
             <div className="flex items-center space-x-3">
               <h1 className="text-2xl font-bold">{funcionario?.nome}</h1>

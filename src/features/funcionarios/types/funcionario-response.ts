@@ -4,6 +4,7 @@ export interface FuncionarioResponse {
   nome: string
   departamento: string
   departamentoId: string
+  avatarUrl?: string
   cargo: string
   cargoId: string
   salario: number

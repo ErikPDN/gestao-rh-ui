@@ -2,11 +2,11 @@ import { Avatar } from '../../components/Avatar'
 import { Fragment } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { useBreadcrumbs } from '../../hooks/useBreadcrumbs'
-import { useAuth } from '../../hooks/useAuth'
+import { useGetMeQuery } from '../../features/profile/hooks/useGetMeQuery'
 
 export default function HeaderLayout() {
   const { crumbs, id } = useBreadcrumbs()
-  const { usuario } = useAuth()
+  const { data: perfil } = useGetMeQuery()
 
   return (
     <header className="relative flex h-14 items-center justify-between border-b border-zinc-300 bg-zinc-100 px-6">
@@ -37,7 +37,11 @@ export default function HeaderLayout() {
             to="/me"
             className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-none transition-colors duration-75 hover:bg-zinc-200"
           >
-            <Avatar funcionarioNome={usuario?.nome || 'Sem Nome'} size="sm" />
+            <Avatar
+              funcionarioNome={perfil?.nome || 'Sem Nome'}
+              size="sm"
+              avatarUrl={perfil?.avatarUrl}
+            />
           </NavLink>
         </div>
       </div>

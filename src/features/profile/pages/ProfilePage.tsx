@@ -22,7 +22,6 @@ export default function ProfilePage() {
 
       <div className="mx-auto flex w-full max-w-3/4 flex-col space-y-6">
         <ProfilePhotoCard
-          userId={profileData?.id ?? ''}
           userName={profileData?.nome}
           userAvatarUrl={profileData?.avatarUrl}
           isLoadingUser={isLoading}
@@ -31,7 +30,6 @@ export default function ProfilePage() {
           funcionarioId={profileData?.funcionarioId}
           userName={profileData?.nome}
           userEmail={profileData?.email}
-          roles={profileData?.roles}
           cargo={profileData?.cargo}
           departamento={profileData?.departamento}
           isLoadingUser={isLoading}
